@@ -19,6 +19,11 @@
 		B322924A2ABC8755003B7C8D /* AppBootstrap.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32292492ABC8755003B7C8D /* AppBootstrap.swift */; };
 		B32292502ABC8940003B7C8D /* Core in Frameworks */ = {isa = PBXBuildFile; productRef = B322924F2ABC8940003B7C8D /* Core */; };
 		B322925A2ABCD06F003B7C8D /* FeatureLogin in Frameworks */ = {isa = PBXBuildFile; productRef = B32292592ABCD06F003B7C8D /* FeatureLogin */; };
+		B322925D2ABD751F003B7C8D /* FeatureAccounts in Frameworks */ = {isa = PBXBuildFile; productRef = B322925C2ABD751F003B7C8D /* FeatureAccounts */; };
+		B322925F2ABE01B2003B7C8D /* LaunchCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B322925E2ABE01B2003B7C8D /* LaunchCoordinator.swift */; };
+		B32292612ABE0EA6003B7C8D /* AppDependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32292602ABE0EA6003B7C8D /* AppDependencies.swift */; };
+		B34E782F2ABE155E001D4CAC /* Persistence in Frameworks */ = {isa = PBXBuildFile; productRef = B34E782E2ABE155E001D4CAC /* Persistence */; };
+		B34E78322ABEC6A1001D4CAC /* CoreUI in Frameworks */ = {isa = PBXBuildFile; productRef = B34E78312ABEC6A1001D4CAC /* CoreUI */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +52,11 @@
 		B32292492ABC8755003B7C8D /* AppBootstrap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppBootstrap.swift; sourceTree = "<group>"; };
 		B322924E2ABC8937003B7C8D /* Core */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Core; sourceTree = "<group>"; };
 		B32292582ABCCEAD003B7C8D /* FeatureLogin */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = FeatureLogin; sourceTree = "<group>"; };
+		B322925B2ABD6E25003B7C8D /* FeatureAccounts */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = FeatureAccounts; sourceTree = "<group>"; };
+		B322925E2ABE01B2003B7C8D /* LaunchCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchCoordinator.swift; sourceTree = "<group>"; };
+		B32292602ABE0EA6003B7C8D /* AppDependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDependencies.swift; sourceTree = "<group>"; };
+		B34E782D2ABE13E5001D4CAC /* Persistence */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Persistence; sourceTree = "<group>"; };
+		B34E78302ABEC691001D4CAC /* CoreUI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = CoreUI; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,10 +64,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B34E782F2ABE155E001D4CAC /* Persistence in Frameworks */,
 				B26EF47828881E7F003BFDF2 /* Networking in Frameworks */,
+				B34E78322ABEC6A1001D4CAC /* CoreUI in Frameworks */,
 				B322925A2ABCD06F003B7C8D /* FeatureLogin in Frameworks */,
 				B32292452ABC86AE003B7C8D /* Coordinating in Frameworks */,
 				B32292502ABC8940003B7C8D /* Core in Frameworks */,
+				B322925D2ABD751F003B7C8D /* FeatureAccounts in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -125,6 +138,9 @@
 				B32292422ABC8590003B7C8D /* Coordinating */,
 				B322924E2ABC8937003B7C8D /* Core */,
 				B32292582ABCCEAD003B7C8D /* FeatureLogin */,
+				B322925B2ABD6E25003B7C8D /* FeatureAccounts */,
+				B34E782D2ABE13E5001D4CAC /* Persistence */,
+				B34E78302ABEC691001D4CAC /* CoreUI */,
 			);
 			name = Packages;
 			sourceTree = "<group>";
@@ -143,6 +159,8 @@
 				B32292462ABC871D003B7C8D /* SceneDelegate.swift */,
 				B2CA46CB279350880041B3A5 /* AppDelegate.swift */,
 				B32292492ABC8755003B7C8D /* AppBootstrap.swift */,
+				B322925E2ABE01B2003B7C8D /* LaunchCoordinator.swift */,
+				B32292602ABE0EA6003B7C8D /* AppDependencies.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -177,6 +195,9 @@
 				B32292442ABC86AE003B7C8D /* Coordinating */,
 				B322924F2ABC8940003B7C8D /* Core */,
 				B32292592ABCD06F003B7C8D /* FeatureLogin */,
+				B322925C2ABD751F003B7C8D /* FeatureAccounts */,
+				B34E782E2ABE155E001D4CAC /* Persistence */,
+				B34E78312ABEC6A1001D4CAC /* CoreUI */,
 			);
 			productName = MoneyBox;
 			productReference = B2CA46C8279350880041B3A5 /* MoneyBox.app */;
@@ -267,7 +288,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				B2CA46CC279350880041B3A5 /* AppDelegate.swift in Sources */,
+				B322925F2ABE01B2003B7C8D /* LaunchCoordinator.swift in Sources */,
 				B322924A2ABC8755003B7C8D /* AppBootstrap.swift in Sources */,
+				B32292612ABE0EA6003B7C8D /* AppDependencies.swift in Sources */,
 				B32292472ABC871D003B7C8D /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -425,7 +448,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 7DM2UT7C8G;
+				DEVELOPMENT_TEAM = 2262CQKPZT;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MoneyBox/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -439,7 +462,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = moneybox;
+				PRODUCT_BUNDLE_IDENTIFIER = "moneybox-ios-test";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -454,7 +477,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 7DM2UT7C8G;
+				DEVELOPMENT_TEAM = 2262CQKPZT;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MoneyBox/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -468,7 +491,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = moneybox;
+				PRODUCT_BUNDLE_IDENTIFIER = "moneybox-ios-test";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -564,6 +587,18 @@
 		B32292592ABCD06F003B7C8D /* FeatureLogin */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = FeatureLogin;
+		};
+		B322925C2ABD751F003B7C8D /* FeatureAccounts */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = FeatureAccounts;
+		};
+		B34E782E2ABE155E001D4CAC /* Persistence */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Persistence;
+		};
+		B34E78312ABEC6A1001D4CAC /* CoreUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = CoreUI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

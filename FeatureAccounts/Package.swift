@@ -4,13 +4,13 @@
 import PackageDescription
 
 let package = Package(
-    name: "FeatureLogin",
+    name: "FeatureAccounts",
     platforms: [.iOS(.v11)],
     products: [
         // Products define the executables and libraries a package produces, and make them visible to other packages.
         .library(
-            name: "FeatureLogin",
-            targets: ["FeatureLogin"]),
+            name: "FeatureAccounts",
+            targets: ["FeatureAccounts"]),
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
@@ -18,23 +18,21 @@ let package = Package(
         .package(path: "../Core"),
         .package(path: "../Coordinating"),
         .package(path: "../Networking"),
-        .package(path: "../Persistence"),
-        .package(path: "../CoreUI")
+        .package(path: "../Persistence")
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
         // Targets can depend on other targets in this package, and on products in packages this package depends on.
         .target(
-            name: "FeatureLogin",
+            name: "FeatureAccounts",
             dependencies: [
                 "Core",
                 "Coordinating",
                 "Networking",
-                "Persistence",
-                "CoreUI"
+                "Persistence"
             ]),
         .testTarget(
-            name: "FeatureLoginTests",
-            dependencies: ["FeatureLogin"]),
+            name: "FeatureAccountsTests",
+            dependencies: ["FeatureAccounts"]),
     ]
 )
