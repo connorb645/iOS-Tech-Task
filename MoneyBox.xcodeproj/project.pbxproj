@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		B228EA6B2880B30B00B35F16 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B228EA692880B30B00B35F16 /* LoginViewController.swift */; };
-		B228EA6C2880B30B00B35F16 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B228EA6A2880B30B00B35F16 /* Login.storyboard */; };
 		B26EF47828881E7F003BFDF2 /* Networking in Frameworks */ = {isa = PBXBuildFile; productRef = B26EF47728881E7F003BFDF2 /* Networking */; };
 		B2CA46CC279350880041B3A5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2CA46CB279350880041B3A5 /* AppDelegate.swift */; };
 		B2CA46D52793508A0041B3A5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B2CA46D42793508A0041B3A5 /* Assets.xcassets */; };
@@ -16,6 +15,14 @@
 		B2CA47672794D69A0041B3A5 /* StubData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2CA47662794D69A0041B3A5 /* StubData.swift */; };
 		B2CA47712794D8E50041B3A5 /* LoginSucceed.json in Resources */ = {isa = PBXBuildFile; fileRef = B2CA47692794D6D70041B3A5 /* LoginSucceed.json */; };
 		B2CA47B42796052F0041B3A5 /* Accounts.json in Resources */ = {isa = PBXBuildFile; fileRef = B2CA47B2279604A10041B3A5 /* Accounts.json */; };
+		B32292412ABC663D003B7C8D /* LoginCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32292402ABC663D003B7C8D /* LoginCoordinator.swift */; };
+		B32292452ABC86AE003B7C8D /* Coordinating in Frameworks */ = {isa = PBXBuildFile; productRef = B32292442ABC86AE003B7C8D /* Coordinating */; };
+		B32292472ABC871D003B7C8D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32292462ABC871D003B7C8D /* SceneDelegate.swift */; };
+		B322924A2ABC8755003B7C8D /* AppBootstrap.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32292492ABC8755003B7C8D /* AppBootstrap.swift */; };
+		B32292502ABC8940003B7C8D /* Core in Frameworks */ = {isa = PBXBuildFile; productRef = B322924F2ABC8940003B7C8D /* Core */; };
+		B32292522ABC91F9003B7C8D /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32292512ABC91F9003B7C8D /* LoginView.swift */; };
+		B32292542ABC9224003B7C8D /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32292532ABC9224003B7C8D /* LoginViewModel.swift */; };
+		B32292562ABC922F003B7C8D /* LoginDependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32292552ABC922F003B7C8D /* LoginDependencies.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,7 +37,6 @@
 
 /* Begin PBXFileReference section */
 		B228EA692880B30B00B35F16 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
-		B228EA6A2880B30B00B35F16 /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
 		B24EED92288ED5740016C233 /* Networking */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Networking; sourceTree = "<group>"; };
 		B2CA46C8279350880041B3A5 /* MoneyBox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoneyBox.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2CA46CB279350880041B3A5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -41,6 +47,14 @@
 		B2CA47662794D69A0041B3A5 /* StubData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubData.swift; sourceTree = "<group>"; };
 		B2CA47692794D6D70041B3A5 /* LoginSucceed.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = LoginSucceed.json; sourceTree = "<group>"; };
 		B2CA47B2279604A10041B3A5 /* Accounts.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Accounts.json; sourceTree = "<group>"; };
+		B32292402ABC663D003B7C8D /* LoginCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginCoordinator.swift; sourceTree = "<group>"; };
+		B32292422ABC8590003B7C8D /* Coordinating */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Coordinating; sourceTree = "<group>"; };
+		B32292462ABC871D003B7C8D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		B32292492ABC8755003B7C8D /* AppBootstrap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppBootstrap.swift; sourceTree = "<group>"; };
+		B322924E2ABC8937003B7C8D /* Core */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Core; sourceTree = "<group>"; };
+		B32292512ABC91F9003B7C8D /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		B32292532ABC9224003B7C8D /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		B32292552ABC922F003B7C8D /* LoginDependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginDependencies.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,6 +63,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				B26EF47828881E7F003BFDF2 /* Networking in Frameworks */,
+				B32292452ABC86AE003B7C8D /* Coordinating in Frameworks */,
+				B32292502ABC8940003B7C8D /* Core in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -69,6 +85,7 @@
 				B2CA46CA279350880041B3A5 /* MoneyBox */,
 				B2CA46E12793508A0041B3A5 /* MoneyBoxTests */,
 				B2CA46C9279350880041B3A5 /* Products */,
+				B32292432ABC86AE003B7C8D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -84,12 +101,9 @@
 		B2CA46CA279350880041B3A5 /* MoneyBox */ = {
 			isa = PBXGroup;
 			children = (
-				B228EA6A2880B30B00B35F16 /* Login.storyboard */,
-				B228EA692880B30B00B35F16 /* LoginViewController.swift */,
-				B2CA46CB279350880041B3A5 /* AppDelegate.swift */,
-				B2CA46D42793508A0041B3A5 /* Assets.xcassets */,
-				B2CA46D62793508A0041B3A5 /* LaunchScreen.storyboard */,
-				B2CA46D92793508A0041B3A5 /* Info.plist */,
+				B322924C2ABC878D003B7C8D /* Resources */,
+				B322924B2ABC877D003B7C8D /* Flows */,
+				B32292482ABC8740003B7C8D /* App */,
 			);
 			path = MoneyBox;
 			sourceTree = "<group>";
@@ -116,8 +130,49 @@
 			isa = PBXGroup;
 			children = (
 				B24EED92288ED5740016C233 /* Networking */,
+				B32292422ABC8590003B7C8D /* Coordinating */,
+				B322924E2ABC8937003B7C8D /* Core */,
 			);
 			name = Packages;
+			sourceTree = "<group>";
+		};
+		B32292432ABC86AE003B7C8D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B32292482ABC8740003B7C8D /* App */ = {
+			isa = PBXGroup;
+			children = (
+				B2CA46D62793508A0041B3A5 /* LaunchScreen.storyboard */,
+				B32292462ABC871D003B7C8D /* SceneDelegate.swift */,
+				B2CA46CB279350880041B3A5 /* AppDelegate.swift */,
+				B32292492ABC8755003B7C8D /* AppBootstrap.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		B322924B2ABC877D003B7C8D /* Flows */ = {
+			isa = PBXGroup;
+			children = (
+				B228EA692880B30B00B35F16 /* LoginViewController.swift */,
+				B32292402ABC663D003B7C8D /* LoginCoordinator.swift */,
+				B32292512ABC91F9003B7C8D /* LoginView.swift */,
+				B32292532ABC9224003B7C8D /* LoginViewModel.swift */,
+				B32292552ABC922F003B7C8D /* LoginDependencies.swift */,
+			);
+			path = Flows;
+			sourceTree = "<group>";
+		};
+		B322924C2ABC878D003B7C8D /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				B2CA46D92793508A0041B3A5 /* Info.plist */,
+				B2CA46D42793508A0041B3A5 /* Assets.xcassets */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -138,6 +193,8 @@
 			name = MoneyBox;
 			packageProductDependencies = (
 				B26EF47728881E7F003BFDF2 /* Networking */,
+				B32292442ABC86AE003B7C8D /* Coordinating */,
+				B322924F2ABC8940003B7C8D /* Core */,
 			);
 			productName = MoneyBox;
 			productReference = B2CA46C8279350880041B3A5 /* MoneyBox.app */;
@@ -209,7 +266,6 @@
 				B2CA46D82793508A0041B3A5 /* LaunchScreen.storyboard in Resources */,
 				B2CA47712794D8E50041B3A5 /* LoginSucceed.json in Resources */,
 				B2CA46D52793508A0041B3A5 /* Assets.xcassets in Resources */,
-				B228EA6C2880B30B00B35F16 /* Login.storyboard in Resources */,
 				B2CA47B42796052F0041B3A5 /* Accounts.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -228,8 +284,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B32292522ABC91F9003B7C8D /* LoginView.swift in Sources */,
 				B2CA46CC279350880041B3A5 /* AppDelegate.swift in Sources */,
+				B32292562ABC922F003B7C8D /* LoginDependencies.swift in Sources */,
 				B228EA6B2880B30B00B35F16 /* LoginViewController.swift in Sources */,
+				B32292412ABC663D003B7C8D /* LoginCoordinator.swift in Sources */,
+				B322924A2ABC8755003B7C8D /* AppBootstrap.swift in Sources */,
+				B32292472ABC871D003B7C8D /* SceneDelegate.swift in Sources */,
+				B32292542ABC9224003B7C8D /* LoginViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -314,7 +376,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -369,7 +431,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -388,10 +450,10 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 7DM2UT7C8G;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = MoneyBox/Info.plist;
+				INFOPLIST_FILE = MoneyBox/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Login;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
+				INFOPLIST_KEY_UIMainStoryboardFile = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -417,10 +479,10 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 7DM2UT7C8G;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = MoneyBox/Info.plist;
+				INFOPLIST_FILE = MoneyBox/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Login;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
+				INFOPLIST_KEY_UIMainStoryboardFile = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -513,6 +575,14 @@
 		B26EF47728881E7F003BFDF2 /* Networking */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Networking;
+		};
+		B32292442ABC86AE003B7C8D /* Coordinating */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Coordinating;
+		};
+		B322924F2ABC8940003B7C8D /* Core */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Core;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
