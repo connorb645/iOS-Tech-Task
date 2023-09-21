@@ -11,5 +11,5 @@ public protocol Coordinating {
     var children: [Coordinating] { get set }
     var router: Routing { get set }
     
-    func start()
+    func start(isAnimated: Bool, canGoBack: Bool)
 }

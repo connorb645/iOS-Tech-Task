@@ -30,7 +30,7 @@ import UIKit
  4. Initialize the View subclass passing in the ViewModel.
  */
 open class View<VM: ViewModel>: UIView {
-    let viewModel: VM
+    public let viewModel: VM
     
     public init(viewModel: VM) {
         self.viewModel = viewModel
