@@ -54,8 +54,8 @@ open class ViewController<VM: ViewModel, V: View<VM>>: UIViewController {
         view.addSubview(baseView)
         
         baseView.activateConstraints {
-            $0.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor)
-            $0.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor)
+            $0.leadingAnchor.constraint(equalTo: view.leadingAnchor)
+            $0.trailingAnchor.constraint(equalTo: view.trailingAnchor)
             $0.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor)
             $0.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor)
         }

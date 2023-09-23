@@ -9,19 +9,17 @@ import Foundation
 import FeatureLogin
 import FeatureAccounts
 import Persistence
+import Network
 
 struct AppDependencies {
     let loginDependencies: LoginDependencies
     let accountsListDependencies: AccountsListDependencies
-    let authPersistence: Auth
             
     init(
         loginDependencies: LoginDependencies,
-        accountsListDependencies: AccountsListDependencies,
-        authPersistence: Auth
+        accountsListDependencies: AccountsListDependencies
     ) {
         self.loginDependencies = loginDependencies
         self.accountsListDependencies = accountsListDependencies
-        self.authPersistence = authPersistence
     }
 }

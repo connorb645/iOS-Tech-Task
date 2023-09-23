@@ -25,20 +25,10 @@ final class LaunchCoordinator: Coordinating {
     }
     
     func start(isAnimated: Bool, canGoBack: Bool) {
-        let authToken = dependencies.authPersistence.getAuthToken()
-        let coordinator: Coordinating
-        if let authToken {
-            coordinator = AccountsListCoordinator(
-                router: router,
-                dependencies: dependencies.accountsListDependencies
-            )
-            
-        } else {
-            coordinator = LoginCoordinator(
-                router: router,
-                dependencies: dependencies.loginDependencies
-            )
-        }
+        let coordinator = LoginCoordinator(
+            router: router,
+            dependencies: dependencies.loginDependencies
+        )
         children.append(coordinator)
         coordinator.start(isAnimated: false, canGoBack: canGoBack)
     }

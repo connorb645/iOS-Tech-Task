@@ -19,6 +19,7 @@ public enum API {
                                          "apiVersion": "3.0.0"]
         if let token = Authentication.token {
             headers["Authorization"] = "Bearer \(token)"
+            print("Token: \(token)")
         }
         return headers
     }

@@ -16,6 +16,7 @@ let package = Package(
         // Dependencies declare other packages that this package depends on.
         // .package(url: /* package url */, from: "1.0.0"),
         .package(path: "../Core"),
+        .package(path: "../CoreUI"),
         .package(path: "../Coordinating"),
         .package(path: "../Networking"),
         .package(path: "../Persistence")
@@ -27,6 +28,7 @@ let package = Package(
             name: "FeatureAccounts",
             dependencies: [
                 "Core",
+                "CoreUI",
                 "Coordinating",
                 "Networking",
                 "Persistence"

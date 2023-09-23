@@ -10,14 +10,19 @@ import Networking
 import Persistence
 
 public struct AccountsListDependencies {
-    let authPersistence: Auth
+    public typealias ProductFetcher = ((@escaping (Result<AccountResponse, Error>) -> Void)) -> Void
+    
+    let sessionManager: SessionManager
     let logoutHandler: () -> Void
+    let fetchProducts: ProductFetcher
     
     public init(
-        authPersistence: Auth,
-        logoutHandler: @escaping () -> Void
+        sessionManager: SessionManager,
+        logoutHandler: @escaping () -> Void,
+        fetchProducts: @escaping ProductFetcher
     ) {
-        self.authPersistence = authPersistence
+        self.sessionManager = sessionManager
         self.logoutHandler = logoutHandler
+        self.fetchProducts = fetchProducts
     }
 }

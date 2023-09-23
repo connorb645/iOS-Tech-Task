@@ -6,16 +6,93 @@
 //
 
 import Foundation
+import Networking
 
-public struct AccountsListViewModel {
+final public class AccountsListViewModel {
     private let dependencies: AccountsListDependencies
+    private let coordinator: AccountsCoordinator
     
-    public init(dependencies: AccountsListDependencies) {
+    private var response: AccountResponse?
+    
+    typealias AccountWithProducts = (account: Account, products: [ProductResponse])
+    
+    var accountProducts: [AccountWithProducts] {
+        response?.accounts?.compactMap { account in
+            return (account, products(for: account.wrapper?.id))
+        } ?? []
+    }
+    
+    var totalPlanValue: Double? {
+        response?.totalPlanValue
+    }
+    
+    var setIsFetchingProducts: ((Bool) -> Void)?
+    var onProductsFetchComplete: (() -> Void)?
+    
+    var hasAccounts: Bool {
+        let accountsEmpty = response?.accounts?.isEmpty ?? true
+        return !accountsEmpty
+    }
+        
+    public init(
+        dependencies: AccountsListDependencies,
+        coordinator: AccountsCoordinator
+    ) {
         self.dependencies = dependencies
+        self.coordinator = coordinator
+    }
+    
+    // MARK: - Actions
+    
+    func fetchProducts() {
+        setIsFetchingProducts?(true)
+        
+        dependencies.fetchProducts { result in
+            DispatchQueue.main.async { [weak self] in
+                guard let self else { return }
+                switch result {
+                case .success(let response):
+                    self.response = response
+                    onProductsFetchComplete?()
+                case .failure(let error):
+                    onProductsFetchComplete?()
+                    self.coordinator.displayErrorDialog(with: error.localizedDescription)
+                }
+                setIsFetchingProducts?(false)
+            }
+        }
     }
     
     func logout() {
-        dependencies.authPersistence.clearAuthToken()
-        dependencies.logoutHandler()
+        coordinator.displayLogoutDialog { [weak self] in
+            guard let self else { return }
+            dependencies.sessionManager.removeUserToken()
+            dependencies.logoutHandler()
+        }
+    }
+    
+    func handleProductTapped(_ productId: Int) {
+        guard let product = accountProducts
+            .flatMap({ $0.products })
+            .first(where: { $0.id == productId }) else { return }
+        
+        coordinator.showProductDetail(product: product)
+    }
+    
+    // MARK: - Utils
+    
+    private func products(for wrapperId: String?) -> [ProductResponse] {
+        guard let wrapperId else { return [] }
+        return response?.productResponses?
+            .filter { wrapperId == $0.wrapperID } ?? []
+    }
+    
+    private func account(for wrapperId: String?) -> Account? {
+        response?.accounts?.first { $0.wrapper?.id == wrapperId }
+    }
+    
+    private func product(for id: String?) -> ProductResponse? {
+        guard let id else { return nil }
+        return response?.productResponses?.first { $0.id == Int(id) }
     }
 }

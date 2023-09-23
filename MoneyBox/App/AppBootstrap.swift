@@ -15,18 +15,17 @@ import Persistence
 import Core
 
 final class AppBootstrap {
-    private var coordinator: Coordinating?
     private var router: Routing
     
     private let dataProvider: DataProviderLogic
-    private let authPersistence: Auth
+    private let sessionManager: SessionManager
     
     private var window: UIWindow?
     private var windowScene: UIWindowScene?
     
     private lazy var accountsListDependencies: AccountsListDependencies = {
         AccountsListDependencies(
-            authPersistence: authPersistence,
+            sessionManager: sessionManager,
             logoutHandler: { [weak self] in
                 guard let self else { return }
                 if let windowScene {
@@ -35,20 +34,36 @@ final class AppBootstrap {
                     self.configureWindow(with: windowScene, router: navigationController)
                     self.startLaunchCoordinator()
                 }
-            }
+            },
+            fetchProducts: dataProvider.fetchProducts(completion:)
         )
     }()
     
+    private lazy var productDetailDependencies: ProductDetailDependencies = {
+        ProductDetailDependencies(
+            oneOffPaymentRequester: dataProvider.addMoney(request:completion:)
+        )
+    }()
+    
+    private var accountsCoordinator: AccountsCoordinator {
+        .init(
+            router: router,
+            accountListDependencies: accountsListDependencies,
+            productDetailDependencies: productDetailDependencies
+        )
+    }
+    
     private lazy var loginDependencies: LoginDependencies = {
         LoginDependencies(
-            authPersistence: authPersistence,
+            sessionManager: SessionManager(),
             login: dataProvider.login(request:completion:),
             successfulLoginHandler: { [weak self] router in
                 guard let self else { return }
                 router.push(
                     AccountsListViewController(
                         viewModel: .init(
-                            dependencies: accountsListDependencies
+                            dependencies: accountsListDependencies,
+                            coordinator: accountsCoordinator
                         )
                     ),
                     animated: true,
@@ -63,8 +78,7 @@ final class AppBootstrap {
     private lazy var appDependencies: AppDependencies = {
         AppDependencies(
             loginDependencies: loginDependencies,
-            accountsListDependencies: accountsListDependencies,
-            authPersistence: authPersistence
+            accountsListDependencies: accountsListDependencies
         )
     }()
     
@@ -76,12 +90,8 @@ final class AppBootstrap {
         self.router = router
         self.window = window
         self.windowScene = windowScene
-        
-        let authPersistence = Auth.shared
-        self.authPersistence = authPersistence
-        
-        let dataProvider = DataProvider()
-        self.dataProvider = dataProvider
+        self.sessionManager = SessionManager()
+        self.dataProvider = DataProvider()
         
         if let windowScene {
             self.configureWindow(with: windowScene, router: router)
@@ -94,8 +104,7 @@ final class AppBootstrap {
             router: router,
             dependencies: appDependencies
         )
-        self.coordinator = coordinator
-        self.coordinator?.start(isAnimated: false, canGoBack: true)
+        coordinator.start(isAnimated: false, canGoBack: true)
     }
     
     private func configureWindow(

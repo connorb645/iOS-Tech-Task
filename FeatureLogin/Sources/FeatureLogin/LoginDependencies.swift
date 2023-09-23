@@ -14,20 +14,20 @@ import Core
 public struct LoginDependencies {
     public typealias LoginAPIRequest = (_ request: LoginRequest, _ completion: @escaping (Result<LoginResponse, Error>) -> Void) -> Void
     
-    let authPersistence: Auth
+    let sessionManager: SessionManager
     let login: LoginAPIRequest
     let successfulLoginHandler: (Routing) -> Void
     let emailValidator: Validator
     let passwordValidator: Validator
     
     public init(
-        authPersistence: Auth,
+        sessionManager: SessionManager,
         login: @escaping LoginAPIRequest,
         successfulLoginHandler: @escaping (Routing) -> Void,
         emailValidator: Validator,
         passwordValidator: Validator
     ) {
-        self.authPersistence = authPersistence
+        self.sessionManager = sessionManager
         self.login = login
         self.successfulLoginHandler = successfulLoginHandler
         self.emailValidator = emailValidator
