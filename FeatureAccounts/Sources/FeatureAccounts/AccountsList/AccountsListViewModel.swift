@@ -71,15 +71,31 @@ final public class AccountsListViewModel {
         }
     }
     
-    func handleProductTapped(_ productId: Int) {
+    func handleProductTapped(
+        productId: Int,
+        accountWrapperId: String,
+        moneyboxValueUpdated: @escaping () -> Void
+    ) {
         guard let product = accountProducts
             .flatMap({ $0.products })
             .first(where: { $0.id == productId }) else { return }
         
-        coordinator.showProductDetail(product: product)
+        guard let account = accountProducts
+            .compactMap({ $0.account })
+            .first(where: { $0.wrapper?.id == accountWrapperId }) else { return }
+        
+        coordinator.showProductDetail(
+            product: product,
+            parentAccount: account,
+            moneyboxValueUpdated: moneyboxValueUpdated
+        )
     }
     
     // MARK: - Utils
+    
+    func formatAsCurrency(_ amount: Double) -> String {
+        dependencies.formatAsCurrency(amount)
+    }
     
     private func products(for wrapperId: String?) -> [ProductResponse] {
         guard let wrapperId else { return [] }

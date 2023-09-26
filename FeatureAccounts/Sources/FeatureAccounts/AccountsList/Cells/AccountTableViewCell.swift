@@ -10,8 +10,8 @@ import UIKit
 import Core
 
 final class AccountTableViewCell: UITableViewCell, ReuseIdentifiable {
-    
     struct CellConfigurationData {
+        let accountWrapperId: String?
         let title: String?
         let planValue: Double?
         let earningsNet: Double?
@@ -48,12 +48,13 @@ final class AccountTableViewCell: UITableViewCell, ReuseIdentifiable {
         return collectionView
     }()
     
+    private let collectionViewHeight: Double = 200
+    
     private var cellConfigurationData: CellConfigurationData?
-    var didTapProduct: ((Int) -> Void)?
+    var didTapProduct: ((Int, String) -> Void)?
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        setupConstraints()
         selectionStyle = .none
     }
     
@@ -64,8 +65,10 @@ final class AccountTableViewCell: UITableViewCell, ReuseIdentifiable {
     }
     
     func configure(with data: CellConfigurationData) {
-        self.cellConfigurationData = data
+        cellConfigurationData = data
+        setupConstraints()
         titleLabel.text = data.title ?? ""
+        productsCollectionView.reloadData()
     }
     
     private func setupConstraints() {
@@ -92,7 +95,7 @@ final class AccountTableViewCell: UITableViewCell, ReuseIdentifiable {
             $0.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 0)
             $0.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: 0)
             $0.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -8)
-            $0.heightAnchor.constraint(equalToConstant: 150)
+            $0.heightAnchor.constraint(equalToConstant: collectionViewHeight)
         }
     }
     
@@ -104,14 +107,15 @@ final class AccountTableViewCell: UITableViewCell, ReuseIdentifiable {
 
 extension AccountTableViewCell: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let productId = self.cellConfigurationData?.products[safe: indexPath.row]?.id else { return }
-        didTapProduct?(productId)
+        guard let productId = self.cellConfigurationData?.products[safe: indexPath.row]?.id,
+              let accountWrapperId = self.cellConfigurationData?.accountWrapperId else { return }
+        didTapProduct?(productId, accountWrapperId)
     }
 }
 
 extension AccountTableViewCell: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return .init(width: 200, height: 150)
+        return .init(width: 300, height: collectionViewHeight)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
@@ -133,11 +137,13 @@ extension AccountTableViewCell: UICollectionViewDataSource {
                 let product = cellConfigurationData?.products[safe: indexPath.row] else {
             fatalError("Unable to deque \(AccountTableViewCell.reuseIdentifier)")
         }
-        cell.configure(with: .init(
-            id: product.id,
-            title: product.title,
-            moneybox: product.moneybox
-        ))
+        cell.configure(with: product)
         return cell
     }
+//
+//    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+//        guard let cell = cell as? ProductCollectionViewCell,
+//              let product = cellConfigurationData?.products[safe: indexPath.row] else { return }
+//        cell.configure(with: product)
+//    }
 }

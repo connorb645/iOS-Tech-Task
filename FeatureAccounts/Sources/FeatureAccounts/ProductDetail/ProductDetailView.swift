@@ -14,53 +14,118 @@ final public class ProductDetailView: View<ProductDetailViewModel> {
     
     private lazy var headerContainer: UIView = {
         let view = UIView()
-        view.backgroundColor = .blue
-        view.addSubview(title)
+        view.backgroundColor = .lightGray
         return view
     }()
     
-    private lazy var title: UILabel = {
+    private lazy var headerStackView: UIStackView = {
+        let view = UIStackView()
+        view.axis = .vertical
+        view.addArrangedSubview(accountTitleLabel)
+        view.addArrangedSubview(productTitleLabel)
+        return view
+    }()
+    
+    private lazy var productTitleLabel: UILabel = {
         let label = UILabel()
-        label.text = viewModel.title
-        label.font = UIFont.systemFont(ofSize: 32, weight: .bold)
+        label.text = viewModel.productTitle
+        label.font = UIFont.systemFont(ofSize: 32, weight: .black)
         label.textColor = .white
-        label.adjustsFontSizeToFitWidth = true
-        label.layoutIfNeeded()
         return label
+    }()
+    
+    private lazy var accountTitleLabel: UILabel = {
+        let label = UILabel()
+        label.text = viewModel.accountTitle
+        label.font = UIFont.systemFont(ofSize: 16, weight: .bold)
+        label.textColor = .white
+        return label
+    }()
+    
+    private lazy var planValueInfoLabel: UILabel = {
+        let label = UILabel()
+        label.text = "This plans value is:"
+        return label
+    }()
+    
+    private lazy var planValueLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 32, weight: .black)
+        label.text = viewModel.formatAsCurrency(viewModel.planValue)
+        return label
+    }()
+    
+    private lazy var moneyboxInfoLabel: UILabel = {
+        let label = UILabel()
+        label.text = "The value in your moneybox is:"
+        return label
+    }()
+    
+    private lazy var moneyboxLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 32, weight: .black)
+        label.text = viewModel.formatAsCurrency(viewModel.moneyboxValue)
+        return label
+    }()
+    
+    private lazy var detailContentStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.spacing = 8
+        stackView.addArrangedSubview(moneyboxInfoLabel)
+        stackView.addArrangedSubview(moneyboxLabel)
+        stackView.addArrangedSubview(planValueInfoLabel)
+        stackView.addArrangedSubview(planValueLabel)
+        return stackView
     }()
     
     private lazy var topUpAccountButton: PrimaryButton = {
         let button = PrimaryButton(
-            title: "Add £\(topUpFixedAmount)",
+            title: viewModel.formatAsCurrency(Double(viewModel.topUpAmount)),
             target: (self, #selector(topUpAccountButtonTapped))
         )
         return button
     }()
-    
-    private let topUpFixedAmount = 10
-    
+        
     override init(viewModel: ProductDetailViewModel) {
         super.init(viewModel: viewModel)
         bindViewModelActions()
     }
     
     private func bindViewModelActions() {
+        viewModel.setIsLoading = { [weak self] isLoading in
+            guard let self else { return }
+            topUpAccountButton.isLoading = isLoading
+        }
         
+        viewModel.newMoneyboxValueReceived = { [weak self] newValue in
+            guard let self,
+                  let newValue else { return }
+            moneyboxLabel.text = formatAsCurrency(amount: newValue)
+        }
     }
     
     @objc
     private func topUpAccountButtonTapped() {
-        viewModel.addOneOffPayment(of: topUpFixedAmount)
+        viewModel.addOneOffPayment(of: viewModel.topUpAmount)
     }
 
     public override func configureView() {
         super.configureView()
         addSubview(headerContainer)
+        addSubview(detailContentStackView)
         addSubview(topUpAccountButton)
+        
         headerContainer.activateConstraints {
-            $0.topAnchor.constraint(equalTo: topAnchor)
-            $0.leadingAnchor.constraint(equalTo: leadingAnchor)
-            $0.trailingAnchor.constraint(equalTo: trailingAnchor)
+            $0.topAnchor.constraint(equalTo: topAnchor, constant: 0)
+            $0.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0)
+            $0.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0)
+        }
+        
+        detailContentStackView.activateConstraints {
+            $0.topAnchor.constraint(equalTo: headerContainer.bottomAnchor, constant: 32)
+            $0.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16)
+            $0.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 16)
         }
         topUpAccountButton.activateConstraints {
             $0.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16)
@@ -69,8 +134,8 @@ final public class ProductDetailView: View<ProductDetailViewModel> {
             $0.heightAnchor.constraint(equalToConstant: 45)
         }
         
-        headerContainer.addSubview(title)
-        title.activateConstraints {
+        headerContainer.addSubview(headerStackView)
+        headerStackView.activateConstraints {
             $0.leadingAnchor.constraint(equalTo: headerContainer.leadingAnchor, constant: 16)
             $0.trailingAnchor.constraint(equalTo: headerContainer.trailingAnchor, constant: -16)
             $0.topAnchor.constraint(equalTo: headerContainer.topAnchor, constant: 64)

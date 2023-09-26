@@ -35,13 +35,15 @@ final class AppBootstrap {
                     self.startLaunchCoordinator()
                 }
             },
-            fetchProducts: dataProvider.fetchProducts(completion:)
+            fetchProducts: dataProvider.fetchProducts(completion:),
+            formatAsCurrency: formatAsCurrency(amount:)
         )
     }()
     
     private lazy var productDetailDependencies: ProductDetailDependencies = {
         ProductDetailDependencies(
-            oneOffPaymentRequester: dataProvider.addMoney(request:completion:)
+            oneOffPaymentRequester: dataProvider.addMoney(request:completion:),
+            formatAsCurrency: formatAsCurrency(amount:)
         )
     }()
     

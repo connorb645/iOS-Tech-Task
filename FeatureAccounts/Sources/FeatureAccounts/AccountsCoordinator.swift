@@ -51,11 +51,17 @@ public final class AccountsCoordinator: Coordinating {
         router.present(alert, animated: true)
     }
     
-    func showProductDetail(product: ProductResponse) {
+    func showProductDetail(
+        product: ProductResponse,
+        parentAccount: Account,
+        moneyboxValueUpdated: @escaping () -> Void
+    ) {
         let viewModel = ProductDetailViewModel(
             dependencies: productDetailDependencies,
             coordinator: self,
-            product: product
+            parentAccount: parentAccount,
+            product: product,
+            moneyboxValueUpdated: moneyboxValueUpdated
         )
         let viewController = ProductDetailViewController(viewModel: viewModel)
         router.push(viewController, animated: true, canGoBack: true)

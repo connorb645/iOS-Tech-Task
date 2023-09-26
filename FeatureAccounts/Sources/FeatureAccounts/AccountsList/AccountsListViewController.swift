@@ -13,9 +13,7 @@ final public class AccountsListViewController: ViewController<AccountsListViewMo
     public init(viewModel: AccountsListViewModel) {
         self.viewModel = viewModel
         super.init(
-            view: AccountsListView(
-                viewModel: viewModel
-            )
+            view: AccountsListView(viewModel: viewModel)
         )
         title = "Your Plans"
     }

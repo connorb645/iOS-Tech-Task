@@ -102,12 +102,17 @@ extension AccountsListView: UITableViewDataSource {
            indexPath.row == 0 {
             cell.configure(with: .init(
                 displayName: "Connor Black",
-                totalPlanValue: viewModel.totalPlanValue
+                totalPlanValue: viewModel.totalPlanValue,
+                formatAsCurrency: { [weak self] amount in
+                    guard let self else { return "" }
+                    return viewModel.formatAsCurrency(amount)
+                }
             ))
             return cell
         } else if let cell = tableView.dequeueReusableCell(withIdentifier: AccountTableViewCell.reuseIdentifier,for: indexPath) as? AccountTableViewCell,
                   let accountWithProducts = viewModel.accountProducts[safe: indexPath.row - 1] {
             cell.configure(with: .init(
+                accountWrapperId: accountWithProducts.account.wrapper?.id,
                 title: accountWithProducts.account.name,
                 planValue: accountWithProducts.account.wrapper?.totalValue,
                 earningsNet: accountWithProducts.account.wrapper?.earningsNet,
@@ -116,13 +121,22 @@ extension AccountsListView: UITableViewDataSource {
                     .init(
                         id: $0.id,
                         title: $0.product?.name,
-                        moneybox: $0.moneybox
+                        moneybox: $0.moneybox,
+                        planValue: $0.planValue,
+                        formatAsCurrency: { [weak self] amount in
+                            guard let self else { return "" }
+                            return viewModel.formatAsCurrency(amount)
+                        }
                     )
                 }
             ))
-            cell.didTapProduct = { [weak self] productId in
-                guard let self else { return }
-                viewModel.handleProductTapped(productId)
+            cell.didTapProduct = { [weak self] productId, accountWrapperId in
+                self?.viewModel.handleProductTapped(
+                    productId: productId,
+                    accountWrapperId: accountWrapperId) { [weak self] in
+                        guard let self else { return }
+                        self.viewModel.fetchProducts()
+                    }
             }
             return cell
         }

@@ -5,6 +5,7 @@
 //  Created by Connor Black on 22/09/2023.
 //
 
+import Core
 import Foundation
 import Networking
 import Persistence
@@ -15,14 +16,17 @@ public struct AccountsListDependencies {
     let sessionManager: SessionManager
     let logoutHandler: () -> Void
     let fetchProducts: ProductFetcher
+    let formatAsCurrency: CurrencyFormatter
     
     public init(
         sessionManager: SessionManager,
         logoutHandler: @escaping () -> Void,
-        fetchProducts: @escaping ProductFetcher
+        fetchProducts: @escaping ProductFetcher,
+        formatAsCurrency: @escaping CurrencyFormatter
     ) {
         self.sessionManager = sessionManager
         self.logoutHandler = logoutHandler
         self.fetchProducts = fetchProducts
+        self.formatAsCurrency = formatAsCurrency
     }
 }

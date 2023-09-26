@@ -11,9 +11,25 @@ import Core
 
 final class ProductCollectionViewCell: UICollectionViewCell, ReuseIdentifiable {
     struct CellConfigurationData {
+        let formatAsCurrency: CurrencyFormatter
         let id: Int?
         let title: String?
         let moneybox: Double?
+        let planValue: Double?
+        
+        init(
+            id: Int?,
+            title: String?,
+            moneybox: Double?,
+            planValue: Double?,
+            formatAsCurrency: @escaping CurrencyFormatter
+        ) {
+            self.formatAsCurrency = formatAsCurrency
+            self.id = id
+            self.title = title
+            self.moneybox = moneybox
+            self.planValue = planValue
+        }
     }
     
     private lazy var containerView: UIView = {
@@ -25,6 +41,27 @@ final class ProductCollectionViewCell: UICollectionViewCell, ReuseIdentifiable {
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
+        label.textColor = .white
+        return label
+    }()
+
+    private lazy var planValueInfoLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Plan Value:"
+        label.textColor = .white
+        return label
+    }()
+    
+    private lazy var planValueLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 22, weight: .bold)
+        label.textColor = .white
+        return label
+    }()
+
+    private lazy var moneyboxInfoLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Moneybox:"
         label.textColor = .white
         return label
     }()
@@ -40,17 +77,20 @@ final class ProductCollectionViewCell: UICollectionViewCell, ReuseIdentifiable {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.addArrangedSubview(titleLabel)
+        stackView.addArrangedSubview(moneyboxInfoLabel)
         stackView.addArrangedSubview(moneyboxLabel)
+        stackView.addArrangedSubview(planValueInfoLabel)
+        stackView.addArrangedSubview(planValueLabel)
         return stackView
     }()
     
     override func prepareForReuse() {
         super.prepareForReuse()
+        containerView.removeFromSuperview()
     }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupConstraints()
     }
     
     required init?(coder: NSCoder) {
@@ -76,9 +116,14 @@ final class ProductCollectionViewCell: UICollectionViewCell, ReuseIdentifiable {
     }
     
     func configure(with data: CellConfigurationData) {
+        setupConstraints()
         titleLabel.text = data.title ?? ""
         if let moneybox = data.moneybox {
-            moneyboxLabel.text = "£\(moneybox)"
+            moneyboxLabel.text = data.formatAsCurrency(moneybox)
+        }
+        
+        if let planValue = data.planValue {
+            planValueLabel.text = data.formatAsCurrency(planValue)
         }
     }
 }
