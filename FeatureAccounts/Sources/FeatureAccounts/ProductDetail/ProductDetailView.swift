@@ -61,8 +61,12 @@ final public class ProductDetailView: View<ProductDetailViewModel> {
         return label
     }()
     
-    private lazy var moneyboxLabel: UILabel = {
-        let label = UILabel()
+    private lazy var moneyboxLabel: CountingAnimatedLabel = {
+        let label = CountingAnimatedLabel(
+            startValue: viewModel.moneyboxValue) { [weak self] amount in
+                guard let self else { return "" }
+                return viewModel.formatAsCurrency(amount)
+            }
         label.font = UIFont.systemFont(ofSize: 32, weight: .black)
         label.text = viewModel.formatAsCurrency(viewModel.moneyboxValue)
         return label
@@ -101,7 +105,7 @@ final public class ProductDetailView: View<ProductDetailViewModel> {
         viewModel.newMoneyboxValueReceived = { [weak self] newValue in
             guard let self,
                   let newValue else { return }
-            moneyboxLabel.text = formatAsCurrency(amount: newValue)
+            moneyboxLabel.updateAmount(to: newValue)
         }
     }
     
