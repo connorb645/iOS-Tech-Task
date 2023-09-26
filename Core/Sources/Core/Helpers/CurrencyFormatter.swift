@@ -7,11 +7,14 @@
 
 import Foundation
 
-public func formatAsCurrency(amount: Double) -> String {
+public func formatAsCurrency(
+    amount: Double,
+    locale: Locale = Locale.current
+) -> String {
     let currencyFormatter = NumberFormatter()
     currencyFormatter.usesGroupingSeparator = true
     currencyFormatter.numberStyle = .currency
-    currencyFormatter.locale = Locale.current
+    currencyFormatter.locale = locale
     guard let currency = currencyFormatter.string(from: NSNumber(value: amount)) else {
         return ""
     }
