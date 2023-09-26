@@ -11,11 +11,11 @@ import FeatureAccounts
 import Network
 
 struct AppDependencies {
-    let loginDependencies: LoginDependencies
+    let loginDependencies: LoginDependenciesType
     let accountsListDependencies: AccountsListDependencies
             
     init(
-        loginDependencies: LoginDependencies,
+        loginDependencies: LoginDependenciesType,
         accountsListDependencies: AccountsListDependencies
     ) {
         self.loginDependencies = loginDependencies

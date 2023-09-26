@@ -10,14 +10,22 @@ import Networking
 import Coordinating
 import Core
 
-public struct LoginDependencies {
-    public typealias LoginAPIRequest = (_ request: LoginRequest, _ completion: @escaping (Result<LoginResponse, Error>) -> Void) -> Void
-    
-    let sessionManager: SessionManager
-    let login: LoginAPIRequest
-    let successfulLoginHandler: (Routing) -> Void
-    let emailValidator: Validator
-    let passwordValidator: Validator
+public typealias LoginAPIRequest = (_ request: LoginRequest, _ completion: @escaping (Result<LoginResponse, Error>) -> Void) -> Void
+
+public protocol LoginDependenciesType {
+    var sessionManager: SessionManagerType { get }
+    var login: LoginAPIRequest { get }
+    var successfulLoginHandler: (Routing) -> Void { get }
+    var emailValidator: Validator { get }
+    var passwordValidator: Validator { get }
+}
+
+public struct LoginDependencies: LoginDependenciesType {
+    public let sessionManager: SessionManagerType
+    public let login: LoginAPIRequest
+    public let successfulLoginHandler: (Routing) -> Void
+    public let emailValidator: Validator
+    public let passwordValidator: Validator
     
     public init(
         sessionManager: SessionManager,

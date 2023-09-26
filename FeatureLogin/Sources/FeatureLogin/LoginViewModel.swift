@@ -14,14 +14,14 @@ final class LoginViewModel {
         let password: String
     }
     
-    private let dependencies: LoginDependencies
+    private let dependencies: LoginDependenciesType
     private let coordinator: LoginCoordinator
     
     var setError: ((String?) -> Void)?
     var setIsLoading: ((Bool) -> Void)?
     
     init(
-        dependencies: LoginDependencies,
+        dependencies: LoginDependenciesType,
         coordinator: LoginCoordinator
     ) {
         self.dependencies = dependencies

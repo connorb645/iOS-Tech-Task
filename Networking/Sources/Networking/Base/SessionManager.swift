@@ -7,7 +7,12 @@
 
 import Foundation
 
-public final class SessionManager: NSObject {
+public protocol SessionManagerType {
+    func setUserToken(_ token: String)
+    func removeUserToken()
+}
+
+final public class SessionManager: NSObject, SessionManagerType {
     public func setUserToken(_ token: String) {
         Authentication.token = token
     }

@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-public protocol Routing {
+public protocol Routing: AnyObject {
     func push(_ viewController: UIViewController, animated: Bool, canGoBack: Bool)
     func dismiss(animated: Bool)
     func popToRoot(animated: Bool)

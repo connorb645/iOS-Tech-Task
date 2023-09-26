@@ -17,7 +17,7 @@ final class AppBootstrap {
     private var router: Routing
     
     private let dataProvider: DataProviderLogic
-    private let sessionManager: SessionManager
+    private let sessionManager: SessionManagerType
     
     private var window: UIWindow?
     private var windowScene: UIWindowScene?
@@ -58,7 +58,7 @@ final class AppBootstrap {
         )
     }
     
-    private lazy var loginDependencies: LoginDependencies = {
+    private lazy var loginDependencies: LoginDependenciesType = {
         LoginDependencies(
             sessionManager: SessionManager(),
             login: dataProvider.login(request:completion:),

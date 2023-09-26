@@ -8,13 +8,13 @@
 import Foundation
 import Coordinating
 
-public final class LoginCoordinator: Coordinating {
+public class LoginCoordinator: Coordinating {
     public var children: [Coordinating] = []
     public var router: Routing
-    private let dependencies: LoginDependencies
+    private let dependencies: LoginDependenciesType
     
     public init(router: Routing,
-                dependencies: LoginDependencies) {
+                dependencies: LoginDependenciesType) {
         self.router = router
         self.dependencies = dependencies
     }

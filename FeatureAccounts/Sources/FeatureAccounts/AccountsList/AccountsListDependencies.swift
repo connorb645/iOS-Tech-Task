@@ -12,13 +12,13 @@ import Networking
 public struct AccountsListDependencies {
     public typealias ProductFetcher = ((@escaping (Result<AccountResponse, Error>) -> Void)) -> Void
     
-    let sessionManager: SessionManager
+    let sessionManager: SessionManagerType
     let logoutHandler: () -> Void
     let fetchProducts: ProductFetcher
     let formatAsCurrency: CurrencyFormatter
     
     public init(
-        sessionManager: SessionManager,
+        sessionManager: SessionManagerType,
         logoutHandler: @escaping () -> Void,
         fetchProducts: @escaping ProductFetcher,
         formatAsCurrency: @escaping CurrencyFormatter
