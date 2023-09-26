@@ -11,7 +11,6 @@ import Networking
 import Coordinating
 import FeatureLogin
 import FeatureAccounts
-import Persistence
 import Core
 
 final class AppBootstrap {
@@ -36,14 +35,18 @@ final class AppBootstrap {
                 }
             },
             fetchProducts: dataProvider.fetchProducts(completion:),
-            formatAsCurrency: formatAsCurrency(amount:)
+            formatAsCurrency: { amount in
+                formatAsCurrency(amount: amount)
+            }
         )
     }()
     
     private lazy var productDetailDependencies: ProductDetailDependencies = {
         ProductDetailDependencies(
             oneOffPaymentRequester: dataProvider.addMoney(request:completion:),
-            formatAsCurrency: formatAsCurrency(amount:)
+            formatAsCurrency: { amount in
+                formatAsCurrency(amount: amount)
+            }
         )
     }()
     

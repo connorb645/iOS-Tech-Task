@@ -18,7 +18,6 @@ let package = Package(
         .package(path: "../Core"),
         .package(path: "../Coordinating"),
         .package(path: "../Networking"),
-        .package(path: "../Persistence"),
         .package(path: "../CoreUI")
     ],
     targets: [
@@ -30,7 +29,6 @@ let package = Package(
                 "Core",
                 "Coordinating",
                 "Networking",
-                "Persistence",
                 "CoreUI"
             ]),
         .testTarget(

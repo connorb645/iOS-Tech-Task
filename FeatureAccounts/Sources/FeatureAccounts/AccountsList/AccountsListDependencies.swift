@@ -8,7 +8,6 @@
 import Core
 import Foundation
 import Networking
-import Persistence
 
 public struct AccountsListDependencies {
     public typealias ProductFetcher = ((@escaping (Result<AccountResponse, Error>) -> Void)) -> Void

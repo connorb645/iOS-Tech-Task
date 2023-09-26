@@ -22,7 +22,6 @@
 		B322925D2ABD751F003B7C8D /* FeatureAccounts in Frameworks */ = {isa = PBXBuildFile; productRef = B322925C2ABD751F003B7C8D /* FeatureAccounts */; };
 		B322925F2ABE01B2003B7C8D /* LaunchCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B322925E2ABE01B2003B7C8D /* LaunchCoordinator.swift */; };
 		B32292612ABE0EA6003B7C8D /* AppDependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32292602ABE0EA6003B7C8D /* AppDependencies.swift */; };
-		B34E782F2ABE155E001D4CAC /* Persistence in Frameworks */ = {isa = PBXBuildFile; productRef = B34E782E2ABE155E001D4CAC /* Persistence */; };
 		B34E78322ABEC6A1001D4CAC /* CoreUI in Frameworks */ = {isa = PBXBuildFile; productRef = B34E78312ABEC6A1001D4CAC /* CoreUI */; };
 /* End PBXBuildFile section */
 
@@ -55,7 +54,6 @@
 		B322925B2ABD6E25003B7C8D /* FeatureAccounts */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = FeatureAccounts; sourceTree = "<group>"; };
 		B322925E2ABE01B2003B7C8D /* LaunchCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchCoordinator.swift; sourceTree = "<group>"; };
 		B32292602ABE0EA6003B7C8D /* AppDependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDependencies.swift; sourceTree = "<group>"; };
-		B34E782D2ABE13E5001D4CAC /* Persistence */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Persistence; sourceTree = "<group>"; };
 		B34E78302ABEC691001D4CAC /* CoreUI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = CoreUI; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -64,7 +62,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B34E782F2ABE155E001D4CAC /* Persistence in Frameworks */,
 				B26EF47828881E7F003BFDF2 /* Networking in Frameworks */,
 				B34E78322ABEC6A1001D4CAC /* CoreUI in Frameworks */,
 				B322925A2ABCD06F003B7C8D /* FeatureLogin in Frameworks */,
@@ -139,7 +136,6 @@
 				B322924E2ABC8937003B7C8D /* Core */,
 				B32292582ABCCEAD003B7C8D /* FeatureLogin */,
 				B322925B2ABD6E25003B7C8D /* FeatureAccounts */,
-				B34E782D2ABE13E5001D4CAC /* Persistence */,
 				B34E78302ABEC691001D4CAC /* CoreUI */,
 			);
 			name = Packages;
@@ -196,7 +192,6 @@
 				B322924F2ABC8940003B7C8D /* Core */,
 				B32292592ABCD06F003B7C8D /* FeatureLogin */,
 				B322925C2ABD751F003B7C8D /* FeatureAccounts */,
-				B34E782E2ABE155E001D4CAC /* Persistence */,
 				B34E78312ABEC6A1001D4CAC /* CoreUI */,
 			);
 			productName = MoneyBox;
@@ -591,10 +586,6 @@
 		B322925C2ABD751F003B7C8D /* FeatureAccounts */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = FeatureAccounts;
-		};
-		B34E782E2ABE155E001D4CAC /* Persistence */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = Persistence;
 		};
 		B34E78312ABEC6A1001D4CAC /* CoreUI */ = {
 			isa = XCSwiftPackageProductDependency;

@@ -8,7 +8,6 @@
 import Foundation
 import FeatureLogin
 import FeatureAccounts
-import Persistence
 import Network
 
 struct AppDependencies {

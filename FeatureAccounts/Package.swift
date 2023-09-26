@@ -18,8 +18,7 @@ let package = Package(
         .package(path: "../Core"),
         .package(path: "../CoreUI"),
         .package(path: "../Coordinating"),
-        .package(path: "../Networking"),
-        .package(path: "../Persistence")
+        .package(path: "../Networking")
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
@@ -30,8 +29,7 @@ let package = Package(
                 "Core",
                 "CoreUI",
                 "Coordinating",
-                "Networking",
-                "Persistence"
+                "Networking"
             ]),
         .testTarget(
             name: "FeatureAccountsTests",
