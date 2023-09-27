@@ -37,6 +37,7 @@ final class LoginView: View<LoginViewModel> {
         textField.textContentType = .emailAddress
         textField.keyboardType = .emailAddress
         textField.returnKeyType = .next
+        textField.autocapitalizationType = .none
         return textField
     }()
     

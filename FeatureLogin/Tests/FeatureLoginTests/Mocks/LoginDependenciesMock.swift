@@ -6,6 +6,7 @@
 //
 
 import Core
+import CoreUI
 import XCTest
 import Foundation
 import Networking
@@ -15,13 +16,15 @@ import SharedTestUtils
 
 final class LoginDependenciesMock: LoginDependenciesType {
     enum MethodCall: Equatable {
-        case successfullyLoggedInInvoked
+        case successfullyLoggedInInvoked(Input<LoginResponse.User>)
         case loginInvoked(InputOutput<LoginRequest, Result<LoginResponse, EquatableError>>)
     }
     
     var sessionManager: SessionManagerType = SessionManagerMock()
     var emailValidator: Validator = EmailValidatorMock()
     var passwordValidator: Validator = PasswordValidatorMock()
+    var theme: ThemeProvider = DefaultTheme(bundle: .main)
+    var bundle: Bundle = .main
     
     init(
         sessionManager: SessionManagerType = SessionManagerMock(),
@@ -35,10 +38,10 @@ final class LoginDependenciesMock: LoginDependenciesType {
     
     var methodCalls: [MethodCall] = []
     
-    var successfulLoginHandler: (Routing) -> Void {
-        return { [weak self] router in
+    var successfulLoginHandler: (Routing, LoginResponse.User) -> Void {
+        return { [weak self] router, user in
             guard let self else { return }
-            methodCalls.append(.successfullyLoggedInInvoked)
+            methodCalls.append(.successfullyLoggedInInvoked(.init(user)))
         }
     }
     
