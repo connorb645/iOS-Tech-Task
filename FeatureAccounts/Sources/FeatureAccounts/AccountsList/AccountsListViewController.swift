@@ -15,7 +15,7 @@ final public class AccountsListViewController: ViewController<AccountsListViewMo
         super.init(
             view: AccountsListView(viewModel: viewModel)
         )
-        title = "Your Plans"
+        view.backgroundColor = viewModel.theme.background
     }
     
     public override func viewDidLoad() {

@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import CoreUI
 import Core
 
 final class ProductCollectionViewCell: UICollectionViewCell, ReuseIdentifiable {
@@ -16,60 +17,63 @@ final class ProductCollectionViewCell: UICollectionViewCell, ReuseIdentifiable {
         let title: String?
         let moneybox: Double?
         let planValue: Double?
+        let theme: ThemeProvider
         
         init(
             id: Int?,
             title: String?,
             moneybox: Double?,
             planValue: Double?,
-            formatAsCurrency: @escaping CurrencyFormatter
+            formatAsCurrency: @escaping CurrencyFormatter,
+            theme: ThemeProvider
         ) {
             self.formatAsCurrency = formatAsCurrency
             self.id = id
             self.title = title
             self.moneybox = moneybox
             self.planValue = planValue
+            self.theme = theme
         }
     }
     
     private lazy var containerView: UIView = {
         let view = UIView()
-        view.backgroundColor = .lightGray
+        view.backgroundColor = data?.theme.backgroundOffset ?? .lightGray
         return view
     }()
     
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
-        label.textColor = .white
+        label.textColor = data?.theme.font ?? .white
         return label
     }()
 
     private lazy var planValueInfoLabel: UILabel = {
         let label = UILabel()
         label.text = "Plan Value:"
-        label.textColor = .white
+        label.textColor = data?.theme.font ?? .white
         return label
     }()
     
     private lazy var planValueLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 22, weight: .bold)
-        label.textColor = .white
+        label.textColor = data?.theme.font ?? .white
         return label
     }()
 
     private lazy var moneyboxInfoLabel: UILabel = {
         let label = UILabel()
         label.text = "Moneybox:"
-        label.textColor = .white
+        label.textColor = data?.theme.font ?? .white
         return label
     }()
     
     private lazy var moneyboxLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 32, weight: .black)
-        label.textColor = .white
+        label.textColor = data?.theme.font ?? .white
         return label
     }()
     
@@ -83,6 +87,8 @@ final class ProductCollectionViewCell: UICollectionViewCell, ReuseIdentifiable {
         stackView.addArrangedSubview(planValueLabel)
         return stackView
     }()
+    
+    private var data: CellConfigurationData?
     
     override func prepareForReuse() {
         super.prepareForReuse()
@@ -109,13 +115,14 @@ final class ProductCollectionViewCell: UICollectionViewCell, ReuseIdentifiable {
         containerView.addSubview(stackView)
         stackView.activateConstraints {
             $0.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16)
-            $0.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: 16)
+            $0.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16)
             $0.centerXAnchor.constraint(equalTo: containerView.centerXAnchor)
             $0.centerYAnchor.constraint(equalTo: containerView.centerYAnchor)
         }
     }
     
     func configure(with data: CellConfigurationData) {
+        self.data = data
         setupConstraints()
         titleLabel.text = data.title ?? ""
         if let moneybox = data.moneybox {

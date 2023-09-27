@@ -17,5 +17,6 @@ final public class ProductDetailViewController: ViewController<ProductDetailView
                 viewModel: viewModel
             )
         )
+        view.backgroundColor = viewModel.theme.background
     }
 }

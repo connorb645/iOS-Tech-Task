@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import Core
+import CoreUI
 
 final class AccountTableViewCell: UITableViewCell, ReuseIdentifiable {
     struct CellConfigurationData {
@@ -17,15 +18,18 @@ final class AccountTableViewCell: UITableViewCell, ReuseIdentifiable {
         let earningsNet: Double?
         let earningsPercentage: Double?
         let products: [ProductCollectionViewCell.CellConfigurationData]
+        let theme: ThemeProvider
     }
     
     lazy var containerView: UIView = {
         let view = UIView()
+        view.backgroundColor = .clear
         return view
     }()
     
     lazy var titleLabel: UILabel = {
         let label = UILabel()
+        label.textColor = data?.theme.font ?? .white
         return label
     }()
     
@@ -39,6 +43,7 @@ final class AccountTableViewCell: UITableViewCell, ReuseIdentifiable {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewFlowLayout)
         collectionView.dataSource = self
         collectionView.delegate = self
+        collectionView.backgroundColor = .clear
         collectionView.isUserInteractionEnabled = true
         collectionView.alwaysBounceVertical = false
         collectionView.alwaysBounceHorizontal = true
@@ -50,7 +55,7 @@ final class AccountTableViewCell: UITableViewCell, ReuseIdentifiable {
     
     private let collectionViewHeight: Double = 200
     
-    private var cellConfigurationData: CellConfigurationData?
+    private var data: CellConfigurationData?
     var didTapProduct: ((Int, String) -> Void)?
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -65,7 +70,8 @@ final class AccountTableViewCell: UITableViewCell, ReuseIdentifiable {
     }
     
     func configure(with data: CellConfigurationData) {
-        cellConfigurationData = data
+        contentView.backgroundColor = data.theme.background
+        self.data = data
         setupConstraints()
         titleLabel.text = data.title ?? ""
         productsCollectionView.reloadData()
@@ -73,7 +79,6 @@ final class AccountTableViewCell: UITableViewCell, ReuseIdentifiable {
     
     private func setupConstraints() {
         contentView.addSubview(containerView)
-        
         containerView.activateConstraints {
             $0.leadingAnchor.constraint(equalTo: contentView.leadingAnchor)
             $0.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
@@ -107,8 +112,8 @@ final class AccountTableViewCell: UITableViewCell, ReuseIdentifiable {
 
 extension AccountTableViewCell: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let productId = self.cellConfigurationData?.products[safe: indexPath.row]?.id,
-              let accountWrapperId = self.cellConfigurationData?.accountWrapperId else { return }
+        guard let productId = self.data?.products[safe: indexPath.row]?.id,
+              let accountWrapperId = self.data?.accountWrapperId else { return }
         didTapProduct?(productId, accountWrapperId)
     }
 }
@@ -129,21 +134,16 @@ extension AccountTableViewCell: UICollectionViewDelegateFlowLayout {
 
 extension AccountTableViewCell: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return cellConfigurationData?.products.count ?? 0
+        return data?.products.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProductCollectionViewCell.reuseIdentifier, for: indexPath) as? ProductCollectionViewCell,
-                let product = cellConfigurationData?.products[safe: indexPath.row] else {
+                let product = data?.products[safe: indexPath.row] else {
             fatalError("Unable to deque \(AccountTableViewCell.reuseIdentifier)")
         }
         cell.configure(with: product)
         return cell
     }
-//
-//    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-//        guard let cell = cell as? ProductCollectionViewCell,
-//              let product = cellConfigurationData?.products[safe: indexPath.row] else { return }
-//        cell.configure(with: product)
-//    }
+
 }

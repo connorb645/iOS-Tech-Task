@@ -7,12 +7,17 @@
 
 import Foundation
 import Networking
+import CoreUI
 
 final public class ProductDetailViewModel {
     private let dependencies: ProductDetailDependenciesType
     private let coordinator: AccountsCoordinatorType
     private let parentAccount: Account
     private let product: ProductResponse
+    
+    lazy var theme: ThemeProvider = {
+        dependencies.theme
+    }()
     
     lazy var productTitle: String = {
         product.product?.name ?? ""

@@ -15,6 +15,7 @@ final public class AccountsListView: View<AccountsListViewModel> {
         tableView.dataSource = self
         tableView.separatorStyle = .none
         tableView.alpha = 0.0
+        tableView.backgroundColor = .clear
         tableView.register(
             AccountTableViewCell.self,
             forCellReuseIdentifier: AccountTableViewCell.reuseIdentifier
@@ -28,7 +29,7 @@ final public class AccountsListView: View<AccountsListViewModel> {
     
     private lazy var activityLoader: UIActivityIndicatorView = {
         let activityLoader = UIActivityIndicatorView()
-        activityLoader.color = .lightGray
+        activityLoader.color = viewModel.theme.font
         activityLoader.hidesWhenStopped = true
         return activityLoader
     }()
@@ -37,6 +38,7 @@ final public class AccountsListView: View<AccountsListViewModel> {
         let label = UILabel()
         label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping
+        label.textColor = viewModel.theme.font
         label.text = "It doesn't look like you have set up any accounts yet."
         return label
     }()
@@ -106,7 +108,8 @@ extension AccountsListView: UITableViewDataSource {
                 formatAsCurrency: { [weak self] amount in
                     guard let self else { return "" }
                     return viewModel.formatAsCurrency(amount)
-                }
+                },
+                theme: viewModel.theme
             ))
             return cell
         } else if let cell = tableView.dequeueReusableCell(withIdentifier: AccountTableViewCell.reuseIdentifier,for: indexPath) as? AccountTableViewCell,
@@ -126,9 +129,11 @@ extension AccountsListView: UITableViewDataSource {
                         formatAsCurrency: { [weak self] amount in
                             guard let self else { return "" }
                             return viewModel.formatAsCurrency(amount)
-                        }
+                        },
+                        theme: viewModel.theme
                     )
-                }
+                },
+                theme: viewModel.theme
             ))
             cell.didTapProduct = { [weak self] productId, accountWrapperId in
                 self?.viewModel.handleProductTapped(

@@ -15,5 +15,6 @@ final class LoginViewController: ViewController<LoginViewModel, LoginView> {
                 viewModel: viewModel
             )
         )
+        view.backgroundColor = viewModel.theme.background
     }
 }

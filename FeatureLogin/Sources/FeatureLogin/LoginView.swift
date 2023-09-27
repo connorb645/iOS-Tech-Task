@@ -14,6 +14,7 @@ final class LoginView: View<LoginViewModel> {
     private func textFieldHeaderLabel(_ title: String) -> UILabel {
         let label = UILabel()
         label.text = title
+        label.textColor = viewModel.theme.font
         return label
     }
     
@@ -27,10 +28,18 @@ final class LoginView: View<LoginViewModel> {
     private lazy var emailTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "e.g. example@gmail.com"
+        textField.delegate = self
+        textField.becomeFirstResponder()
+        textField.borderStyle = .roundedRect
+        textField.textColor = viewModel.theme.font
+        textField.backgroundColor = viewModel.theme.backgroundOffset
+        textField.tintColor = viewModel.theme.font
+        textField.textContentType = .emailAddress
+        textField.keyboardType = .emailAddress
+        textField.returnKeyType = .next
         #if DEBUG
         textField.text = "test+ios2@moneyboxapp.com"
         #endif
-        textField.borderStyle = .roundedRect
         return textField
     }()
     
@@ -38,6 +47,12 @@ final class LoginView: View<LoginViewModel> {
         let textField = UITextField()
         textField.isSecureTextEntry = true
         textField.borderStyle = .roundedRect
+        textField.delegate = self
+        textField.textColor = viewModel.theme.font
+        textField.backgroundColor = viewModel.theme.backgroundOffset
+        textField.tintColor = viewModel.theme.font
+        textField.textContentType = .password
+        textField.returnKeyType = .go
         #if DEBUG
         textField.text = "P455word12"
         #endif
@@ -65,12 +80,19 @@ final class LoginView: View<LoginViewModel> {
     private lazy var loginButton: PrimaryButton = {
         let button = PrimaryButton(
             title: "Login",
-            target: (self,  #selector(loginTapped))
+            target: (self,  #selector(loginTapped)),
+            color: viewModel.theme.accentColour
         )
         button.activateConstraints {
             $0.heightAnchor.constraint(equalToConstant: 45)
         }
         return button
+    }()
+    
+    private lazy var stackViewContainerView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .red
+        return view
     }()
     
     private lazy var contentStackView: UIStackView = {
@@ -90,7 +112,17 @@ final class LoginView: View<LoginViewModel> {
         label.alpha = 0.0
         label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping
+        label.textColor = .red
         return label
+    }()
+    
+    private lazy var scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.addSubview(contentStackView)
+        scrollView.bounces = true
+        scrollView.alwaysBounceVertical = true
+        scrollView.keyboardDismissMode = .interactive
+        return scrollView
     }()
     
     override init(viewModel: LoginViewModel) {
@@ -123,12 +155,28 @@ final class LoginView: View<LoginViewModel> {
     override func configureView() {
         super.configureView()
         
-        addSubview(contentStackView)
-        
-        contentStackView.activateConstraints {
-            $0.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16)
-            $0.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16)
+        addSubview(scrollView)
+        scrollView.activateConstraints {
+            $0.leadingAnchor.constraint(equalTo: leadingAnchor)
+            $0.trailingAnchor.constraint(equalTo: trailingAnchor)
             $0.topAnchor.constraint(equalTo: topAnchor)
+            $0.bottomAnchor.constraint(equalTo: bottomAnchor)
+        }
+        
+        scrollView.addSubview(contentStackView)
+        contentStackView.activateConstraints {
+            $0.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor)
+            $0.topAnchor.constraint(equalTo: scrollView.topAnchor)
+            $0.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor)
+            $0.widthAnchor.constraint(greaterThanOrEqualTo: scrollView.widthAnchor, multiplier: 0.9)
+        }
+        
+        emailTextField.activateConstraints {
+            $0.heightAnchor.constraint(equalToConstant: 45)
+        }
+        
+        passwordTextField.activateConstraints {
+            $0.heightAnchor.constraint(equalToConstant: 45)
         }
     }
     
@@ -140,5 +188,16 @@ final class LoginView: View<LoginViewModel> {
                 password: passwordTextField.text ?? ""
             )
         )
+    }
+}
+
+extension LoginView: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField == emailTextField {
+            passwordTextField.becomeFirstResponder()
+        } else if textField == passwordTextField {
+            loginTapped()
+        }
+        return true
     }
 }

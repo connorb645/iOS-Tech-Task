@@ -7,12 +7,16 @@
 
 import Foundation
 import Networking
+import CoreUI
 
 final public class AccountsListViewModel {
     private let dependencies: AccountsListDependenciesType
     private let coordinator: AccountsCoordinatorType
     
     var response: AccountResponse?
+    lazy var theme: ThemeProvider = {
+        dependencies.theme
+    }()
     
     typealias AccountWithProducts = (account: Account, products: [ProductResponse])
     
