@@ -25,7 +25,8 @@ final class AccountsListViewModelTests: XCTestCase {
         coordinatorMock = AccountsCoordinatorMock()
         viewModel = AccountsListViewModel(
             dependencies: dependenciesMock,
-            coordinator: coordinatorMock
+            coordinator: coordinatorMock,
+            user: .init(firstName: "John", lastName: "Lennon")
         )
     }
     
