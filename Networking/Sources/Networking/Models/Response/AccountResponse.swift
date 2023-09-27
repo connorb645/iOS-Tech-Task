@@ -8,7 +8,7 @@
 import Foundation
 
 // MARK: - AccountResponse
-public struct AccountResponse: Codable {
+public struct AccountResponse: Codable, Equatable {
     public let moneyboxEndOfTaxYear: String?
     public let totalPlanValue: Double?
     public let totalEarnings: Double?
@@ -29,13 +29,28 @@ public struct AccountResponse: Codable {
 }
 
 // MARK: - Account
-public struct Account: Codable {
+public struct Account: Codable, Equatable {
     public let type: String?
     public let name: String?
     public let deepLinkIdentifier: String?
     public let wrapper: Wrapper?
     public let milestone: Milestone?
     public let hasCollections: Bool?
+    
+    public init(type: String?,
+         name: String?,
+         deepLinkIdentifier: String?,
+         wrapper: Wrapper?,
+         milestone: Milestone?,
+         hasCollections: Bool?
+    ) {
+        self.type = type
+        self.name = name
+        self.deepLinkIdentifier = deepLinkIdentifier
+        self.wrapper = wrapper
+        self.milestone = milestone
+        self.hasCollections = hasCollections
+    }
 
     enum CodingKeys: String, CodingKey {
         case type = "Type"
@@ -48,7 +63,7 @@ public struct Account: Codable {
 }
 
 // MARK: - Milestone
-public struct Milestone: Codable {
+public struct Milestone: Codable, Equatable {
     public let initialStage: String?
     public let endStage: String?
     public let endStageID: Int?
@@ -61,7 +76,7 @@ public struct Milestone: Codable {
 }
 
 // MARK: - Wrapper
-public struct Wrapper: Codable {
+public struct Wrapper: Codable, Equatable {
     public let id: String?
     public let definitionGlobalID: String?
     public let totalValue: Double?
@@ -82,7 +97,7 @@ public struct Wrapper: Codable {
 }
 
 // MARK: - Returns
-public struct Returns: Codable {
+public struct Returns: Codable, Equatable {
     public let simple: Double?
     public let lifetime: Double?
     public let annualised: Double?
@@ -95,7 +110,7 @@ public struct Returns: Codable {
 }
 
 // MARK: - ProductResponse
-public struct ProductResponse: Codable {
+public struct ProductResponse: Codable, Equatable {
     public let id: Int?
     public let assetBoxGlobalID: String?
     public let planValue: Double?
@@ -117,6 +132,52 @@ public struct ProductResponse: Codable {
     public let isSwitchVisible: Bool?
     public let state: String?
     public let dateCreated: String?
+    
+    public init(
+        id: Int?,
+        assetBoxGlobalID: String?,
+        planValue: Double?,
+        moneybox: Double?,
+        subscriptionAmount: Int?,
+        totalFees: Double?,
+        isSelected: Bool?,
+        isFavourite: Bool?,
+        collectionDayMessage: String?,
+        wrapperID: String?,
+        isCashBox: Bool?,
+        pendingInstantBankTransferAmount: Int?,
+        assetBox: AssetBox?,
+        product: Product?,
+        investorAccount: InvestorAccount?,
+        personalisation: Personalisation?,
+        contributions: Contributions?,
+        moneyboxCircle: MoneyboxCircle?,
+        isSwitchVisible: Bool?,
+        state: String?,
+        dateCreated: String?
+    ) {
+        self.id = id
+        self.assetBoxGlobalID = assetBoxGlobalID
+        self.planValue = planValue
+        self.moneybox = moneybox
+        self.subscriptionAmount = subscriptionAmount
+        self.totalFees = totalFees
+        self.isSelected = isSelected
+        self.isFavourite = isFavourite
+        self.collectionDayMessage = collectionDayMessage
+        self.wrapperID = wrapperID
+        self.isCashBox = isCashBox
+        self.pendingInstantBankTransferAmount = pendingInstantBankTransferAmount
+        self.assetBox = assetBox
+        self.product = product
+        self.investorAccount = investorAccount
+        self.personalisation = personalisation
+        self.contributions = contributions
+        self.moneyboxCircle = moneyboxCircle
+        self.isSwitchVisible = isSwitchVisible
+        self.state = state
+        self.dateCreated = dateCreated
+    }
 
     enum CodingKeys: String, CodingKey {
         case id = "Id"
@@ -144,7 +205,7 @@ public struct ProductResponse: Codable {
 }
 
 // MARK: - AssetBox
-public struct AssetBox: Codable {
+public struct AssetBox: Codable, Equatable {
     public let title: String?
 
     enum CodingKeys: String, CodingKey {
@@ -153,7 +214,7 @@ public struct AssetBox: Codable {
 }
 
 // MARK: - Contributions
-public struct Contributions: Codable {
+public struct Contributions: Codable, Equatable {
     public let status: String?
 
     enum CodingKeys: String, CodingKey {
@@ -162,7 +223,7 @@ public struct Contributions: Codable {
 }
 
 // MARK: - InvestorAccount
-public struct InvestorAccount: Codable {
+public struct InvestorAccount: Codable, Equatable {
     public let contributionsNet: Double?
     public let earningsNet: Double?
     public let earningsAsPercentage: Double?
@@ -177,7 +238,7 @@ public struct InvestorAccount: Codable {
 }
 
 // MARK: - MoneyboxCircle
-public struct MoneyboxCircle: Codable {
+public struct MoneyboxCircle: Codable, Equatable {
     public let state: String?
 
     enum CodingKeys: String, CodingKey {
@@ -186,7 +247,7 @@ public struct MoneyboxCircle: Codable {
 }
 
 // MARK: - Personalisation
-public struct Personalisation: Codable {
+public struct Personalisation: Codable, Equatable {
     public let quickAddDeposit: QuickAddDeposit?
     public let hideAccounts: HideAccounts?
 
@@ -197,7 +258,7 @@ public struct Personalisation: Codable {
 }
 
 // MARK: - HideAccounts
-public struct HideAccounts: Codable {
+public struct HideAccounts: Codable, Equatable {
     public let enabled: Bool?
     public let isHidden: Bool?
     public let sequence: Int?
@@ -210,7 +271,7 @@ public struct HideAccounts: Codable {
 }
 
 // MARK: - QuickAddDeposit
-public struct QuickAddDeposit: Codable {
+public struct QuickAddDeposit: Codable, Equatable {
     public let amount: Int?
 
     enum CodingKeys: String, CodingKey {
@@ -219,7 +280,7 @@ public struct QuickAddDeposit: Codable {
 }
 
 // MARK: - Product
-public struct Product: Codable {
+public struct Product: Codable, Equatable {
     public let id: Int?
     public let name: String?
     public let categoryType: String?
@@ -266,7 +327,7 @@ public struct Product: Codable {
 }
 
 // MARK: - Documents
-public struct Documents: Codable {
+public struct Documents: Codable, Equatable {
     public let keyFeaturesURL: String?
 
     enum CodingKeys: String, CodingKey {
@@ -275,7 +336,7 @@ public struct Documents: Codable {
 }
 
 // MARK: - Fund
-public struct Fund: Codable {
+public struct Fund: Codable, Equatable {
     public let fundID: Int?
     public let name: String?
     public let logoURL: String?
@@ -290,7 +351,7 @@ public struct Fund: Codable {
 }
 
 // MARK: - Lisa
-public struct Lisa: Codable {
+public struct Lisa: Codable, Equatable {
     public let maximumBonus: Int?
 
     enum CodingKeys: String, CodingKey {

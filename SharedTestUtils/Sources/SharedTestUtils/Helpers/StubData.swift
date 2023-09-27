@@ -6,13 +6,13 @@
 //
 
 import Foundation
-@testable import MoneyBox
 
-struct StubData {
-    static func read<V: Decodable>(file: String, callback: @escaping (Result<V, Error>) -> Void) {
-        if let path = Bundle.main.path(forResource: file, ofType: "json") {
+public final class StubData {
+    private init() {}
+    public static func read<V: Decodable>(file: String, callback: @escaping (Result<V, Error>) -> Void) {
+        if let path = Bundle.module.url(forResource: "\(file)", withExtension: "json") {
             do {
-                let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
+                let data = try Data(contentsOf: path, options: .mappedIfSafe)
                 let result = try JSONDecoder().decode(V.self, from: data)
                 callback(.success(result))
             } catch {

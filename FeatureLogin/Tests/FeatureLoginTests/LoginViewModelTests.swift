@@ -11,97 +11,140 @@ import Core
 import XCTest
 import Networking
 @testable import FeatureLogin
+import SharedTestUtils
 
 final class LoginViewModelTests: XCTestCase {
     var viewModel: LoginViewModel!
     var dependenciesMock: LoginDependenciesMock!
-    var coordinatorSpy: LoginCoordinatorSpy!
+    var coordinatorMock: LoginCoordinatorMock!
+    var routerMock: RouterMock!
+    var sessionManagerMock: SessionManagerMock!
     
     override func setUp() {
         super.setUp()
-        dependenciesMock = LoginDependenciesMock()
-        coordinatorSpy = LoginCoordinatorSpy(
-            router: RoutingSpy(),
-            dependencies: dependenciesMock
-        )
+        sessionManagerMock = SessionManagerMock()
+        dependenciesMock = LoginDependenciesMock(sessionManager: sessionManagerMock)
+        routerMock = RouterMock()
+        coordinatorMock = LoginCoordinatorMock(router: routerMock)
         viewModel = LoginViewModel(
             dependencies: dependenciesMock,
-            coordinator: coordinatorSpy
+            coordinator: coordinatorMock
         )
     }
     
     override func tearDown() {
         viewModel = nil
         dependenciesMock = nil
-        coordinatorSpy = nil
+        coordinatorMock = nil
+        routerMock = nil
         super.tearDown()
     }
     
     func test_attemptLoginWithInvalidCredentials() {
-        var error: String?
+        var setErrorInvocations: [String] = []
         viewModel.setError = { errorMessage in
-            error = errorMessage
+            setErrorInvocations.append(errorMessage ?? "")
         }
         
         viewModel.attemptLogin(with: .init(email: "invalid", password: "password"))
         
-        XCTAssertEqual(error, "Missing email address or password. Please check and try again.")
-    }
-    
-    func test_attemptLoginWithValidCredentials() {
-        viewModel.attemptLogin(with: .init(email: "valid@example.com", password: "password123"))
-        
-        XCTAssertTrue(dependenciesMock.loginCalled)
+        XCTAssertEqual(setErrorInvocations.count, 1)
+        XCTAssertEqual(setErrorInvocations[0], "Missing email address or password. Please check and try again.")
+        XCTAssertEqual([], dependenciesMock.methodCalls)
     }
     
     func test_attemptLoginWithSuccessfulResponse() {
-        // TODO: - Use the provided mock test data in MoneyBoxTests/ResponseJsons/LoginSucceed
-        let successReponse = LoginResponse(
-            session: .init(bearerToken: "token123"),
+        // GIVEN
+        let request = LoginRequest(email: "valid@example.com", password: "password123")
+        let response = LoginResponse(
+            session: .init(
+                bearerToken: "Fake_token"
+            ),
             user: .init(
                 firstName: "John",
                 lastName: "Lennon"
             )
         )
-        dependenciesMock.loginResult = .success(successReponse)
-        
-        let expectation = self.expectation(description: "Login completion expectation")
-        
-        var isLoading: Bool = false
-        viewModel.setIsLoading = { loading in
-            isLoading = loading
+        dependenciesMock.loginResult = .success(response)
+        let isLoadingExpectation = self.expectation(description: "Attempt login loading finished expectation")
+        var isLoadingInvocations: [Bool] = []
+        viewModel.setIsLoading = { isLoading in
+            isLoadingInvocations.append(isLoading)
             if !isLoading {
-                expectation.fulfill()
+                isLoadingExpectation.fulfill()
             }
         }
         
-        viewModel.attemptLogin(with: .init(email: "valid@example.com", password: "password123"))
         
+        var setErrorInvocations: [String?] = []
+        viewModel.setError = { message in
+            setErrorInvocations.append(message)
+        }
+        
+        // WHEN
+        viewModel.attemptLogin(
+            with: .init(
+                email: request.email,
+                password: request.password
+            )
+        )
         waitForExpectations(timeout: 1)
         
-        XCTAssertEqual((dependenciesMock.sessionManager as? SessionManagerMock)?.userToken, "token123")
-        XCTAssertTrue(coordinatorSpy.handleSuccessfulLoginCalled)
-        XCTAssertFalse(isLoading)
+        // THEN
+        // Ensure that the isLoading setter is invoced 2 times exactly, with the correct values
+        XCTAssertEqual([true, false], isLoadingInvocations)
+        // Ensure that the error setter is invoked 1 time exactly, with the correct value
+        XCTAssertEqual([nil], setErrorInvocations)
+        // Ensure that the dependencies class calls login handler exactly 1 time
+        let loginInvokations = dependenciesMock.methodCalls.filter { $0 == .loginInvoked(.init(input: .init(request), output: .init(.success(response)))) }
+        XCTAssertEqual(loginInvokations.count, 1)
+        // Ensure that the session manager sets the user token with the correct token
+        let setUserTokenInvocations = sessionManagerMock.methodCalls.filter { $0 == .setUserToken(.init("Fake_token")) }
+        XCTAssertEqual(setUserTokenInvocations.count, 1)
+        // Ensure that coordinator calls handleSuccessfulLogin exactly once
+        let successfulLoginInvokations = coordinatorMock.methodCalls.filter { $0 == .handleSuccessfulLogin }
+        XCTAssertEqual(successfulLoginInvokations.count, 1)
     }
     
     func test_attemptLoginWithErrorResponse() {
+        // GIVEN
+        let request = LoginRequest(email: "valid@example.com", password: "password123")
         let error = NSError(domain: "Test", code: 123, userInfo: nil)
+        let equatableResult: Result<LoginResponse, EquatableError> = .failure(.init(error))
         dependenciesMock.loginResult = .failure(error)
         
-        let expectation = self.expectation(description: "Login completion expectation")
-        
-        var receivedError: String?
-        viewModel.setError = { errorMessage in
-            receivedError = errorMessage
-            if receivedError != nil {
-                expectation.fulfill()
+        let isLoadingExpectation = self.expectation(description: "Attempt login loading finished expectation")
+        var isLoadingInvocations: [Bool] = []
+        viewModel.setIsLoading = { isLoading in
+            isLoadingInvocations.append(isLoading)
+            if !isLoading {
+                isLoadingExpectation.fulfill()
             }
         }
         
-        viewModel.attemptLogin(with: .init(email: "valid@example.com", password: "password123"))
         
+        var setErrorInvocations: [String?] = []
+        viewModel.setError = { message in
+            setErrorInvocations.append(message)
+        }
+        
+        // WHEN
+        viewModel.attemptLogin(
+            with: .init(
+                email: request.email,
+                password: request.password
+            )
+        )
         waitForExpectations(timeout: 1)
         
-        XCTAssertEqual(receivedError, error.localizedDescription)
+        // THEN
+        // Ensure that the isLoading setter is invoced 2 times exactly, with the correct values
+        XCTAssertEqual([true, false], isLoadingInvocations)
+        // Ensure that the dependencies class calls login handler exactly 1 time
+        let loginInvokations = dependenciesMock.methodCalls.filter { $0 == .loginInvoked(.init(input: .init(request), output: .init(equatableResult))) }
+        XCTAssertEqual(loginInvokations.count, 1)
+        // Ensure that coordinator does not call handleSuccessfulLogin
+        let successfulLoginInvokations = coordinatorMock.methodCalls.filter { $0 == .handleSuccessfulLogin }
+        XCTAssertEqual(successfulLoginInvokations.count, 0)
     }
 }

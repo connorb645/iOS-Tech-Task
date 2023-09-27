@@ -8,7 +8,11 @@
 import Foundation
 import Coordinating
 
-public class LoginCoordinator: Coordinating {
+protocol LoginCoordinatorType: Coordinating, AnyObject {
+    func handleSuccessfulLogin()
+}
+
+public final class LoginCoordinator: LoginCoordinatorType {
     public var children: [Coordinating] = []
     public var router: Routing
     private let dependencies: LoginDependenciesType

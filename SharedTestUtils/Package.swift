@@ -4,39 +4,29 @@
 import PackageDescription
 
 let package = Package(
-    name: "FeatureLogin",
+    name: "SharedTestUtils",
     platforms: [.iOS(.v11)],
     products: [
         // Products define the executables and libraries a package produces, and make them visible to other packages.
         .library(
-            name: "FeatureLogin",
-            targets: ["FeatureLogin"]),
+            name: "SharedTestUtils",
+            targets: ["SharedTestUtils"]),
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
         // .package(url: /* package url */, from: "1.0.0"),
-        .package(path: "../Core"),
-        .package(path: "../Coordinating"),
         .package(path: "../Networking"),
-        .package(path: "../CoreUI"),
-        .package(path: "../SharedTestUtils"),
+        .package(path: "../Coordinating"),
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
         // Targets can depend on other targets in this package, and on products in packages this package depends on.
         .target(
-            name: "FeatureLogin",
-            dependencies: [
-                "Core",
-                "Coordinating",
-                "Networking",
-                "CoreUI"
-            ]),
-        .testTarget(
-            name: "FeatureLoginTests",
-            dependencies: [
-                "FeatureLogin",
-                "SharedTestUtils"
+            name: "SharedTestUtils",
+            dependencies: ["Networking", "Coordinating"],
+            resources: [
+                .process("ResponseJsons/Accounts.json"),
+                .process("ResponseJsons/LoginSucceed.json")
             ]),
     ]
 )

@@ -8,7 +8,7 @@
 import Foundation
 
 // MARK: - LoginRequest
-public struct LoginRequest: Encodable {
+public struct LoginRequest: Encodable, Equatable {
     public let email: String
     public let password: String
     let idfa: String = "ANYTHING"

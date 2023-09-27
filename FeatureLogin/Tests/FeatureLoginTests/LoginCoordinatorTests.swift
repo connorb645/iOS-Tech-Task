@@ -8,55 +8,48 @@
 import XCTest
 import Foundation
 import Coordinating
+import SharedTestUtils
 @testable import FeatureLogin
 
 final class LoginCoordinatorTests: XCTestCase {
     var coordinator: LoginCoordinator!
-    var routerSpy: RoutingSpy!
+    
+    var routerMock: RouterMock!
     var dependenciesMock: LoginDependenciesMock!
     
     override func setUp() {
         super.setUp()
-        routerSpy = RoutingSpy()
+        routerMock = RouterMock()
         dependenciesMock = LoginDependenciesMock()
-        coordinator = LoginCoordinator(router: routerSpy, dependencies: dependenciesMock)
+        coordinator = LoginCoordinator(
+            router: routerMock,
+            dependencies: dependenciesMock
+        )
     }
     
     override func tearDown() {
         coordinator = nil
-        routerSpy = nil
+        routerMock = nil
         dependenciesMock = nil
         super.tearDown()
     }
     
     func test_start() {
+        let pushInvocation: RouterMock.PushInvocation = .init(
+            animated: true,
+            canGoBack: false
+        )
+        
         coordinator.start(isAnimated: true, canGoBack: false)
         
-        XCTAssertTrue(routerSpy.pushedViewController is LoginViewController)
-        XCTAssertTrue(routerSpy.pushAnimated)
-        XCTAssertFalse(routerSpy.canGoBack)
+        let pushInvocations = routerMock.methodCalls.filter { $0 == .push(Input(pushInvocation)) }
+        XCTAssertEqual(pushInvocations.count, 1)
     }
     
     func test_handleSuccessfulLogin() {
         coordinator.handleSuccessfulLogin()
         
-        XCTAssertTrue(dependenciesMock.successfulLoginHandlerCalled)
-        XCTAssertTrue(dependenciesMock.passedRouter === routerSpy)
+        let successfulLoginHandlerInvocations = dependenciesMock.methodCalls.filter { $0 == .successfullyLoggedInInvoked }
+        XCTAssertEqual(successfulLoginHandlerInvocations.count, 1)
     }
-}
-
-final class RoutingSpy: Routing {
-    var pushedViewController: UIViewController?
-    var pushAnimated: Bool = false
-    var canGoBack: Bool = true
-    
-    func push(_ viewController: UIViewController, animated: Bool, canGoBack: Bool) {
-        pushedViewController = viewController
-        pushAnimated = animated
-        self.canGoBack = canGoBack
-    }
-    
-    func dismiss(animated: Bool) {}
-    func popToRoot(animated: Bool) {}
-    func present(_ viewController: UIViewController, animated: Bool) {}
 }

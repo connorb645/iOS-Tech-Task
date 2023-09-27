@@ -15,14 +15,14 @@ final class LoginViewModel {
     }
     
     private let dependencies: LoginDependenciesType
-    private let coordinator: LoginCoordinator
+    private let coordinator: LoginCoordinatorType
     
     var setError: ((String?) -> Void)?
     var setIsLoading: ((Bool) -> Void)?
     
     init(
         dependencies: LoginDependenciesType,
-        coordinator: LoginCoordinator
+        coordinator: LoginCoordinatorType
     ) {
         self.dependencies = dependencies
         self.coordinator = coordinator
