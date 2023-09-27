@@ -21,6 +21,9 @@ The app is designed to be modular, with different Swift Packages responsible for
 
 - **FeatureAccounts**: This package is similar to FeatureLogin, but it has 2 screens which it is responsible for - Accounts List and Product Detail screens. It includes the UI elements for these screens, the logic for fetching and displaying the account details, and handling user interactions. It also includes tests to ensure the functionality of these features.
 
+The modular design of the app allows for independent development of different features. For instance, two different teams can work on the FeatureLogin and FeatureAccounts packages independently. All they would need is their own base app which would bundle just their feature module along with its dependencies. This approach promotes parallel development and reduces dependencies between teams, leading to increased productivity and faster delivery times. Additionally, this structure significantly reduces the likelihood of merge conflicts and reduces compilation times, making the development process smoother and more efficient.
+
+
 ## Accessibility
 The app supports VoiceOver, a powerful accessibility feature in iOS for users who are visually impaired. By providing spoken descriptions of what's on the screen, VoiceOver enables these users to interact with the app and perform actions that would otherwise require sight. This commitment to accessibility ensures that our app can be used by a wider range of people, making it more inclusive and user-friendly.
 
