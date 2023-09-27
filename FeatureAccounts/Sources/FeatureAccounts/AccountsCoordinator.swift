@@ -26,21 +26,25 @@ public class AccountsCoordinator: AccountsCoordinatorType {
     public var router: Routing
     private let accountListDependencies: AccountsListDependenciesType
     private let productDetailDependencies: ProductDetailDependencies
+    private let user: User
     
     public init(
         router: Routing,
         accountListDependencies: AccountsListDependenciesType,
-        productDetailDependencies: ProductDetailDependencies
+        productDetailDependencies: ProductDetailDependencies,
+        user: User
     ) {
         self.router = router
         self.accountListDependencies = accountListDependencies
         self.productDetailDependencies = productDetailDependencies
+        self.user = user
     }
     
     public func start(isAnimated: Bool, canGoBack: Bool) {
         let viewModel = AccountsListViewModel(
             dependencies: accountListDependencies,
-            coordinator: self
+            coordinator: self,
+            user: user
         )
         let viewController = AccountsListViewController(viewModel: viewModel)
         router.push(viewController, animated: isAnimated, canGoBack: canGoBack)

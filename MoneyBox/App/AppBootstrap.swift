@@ -54,11 +54,12 @@ final class AppBootstrap {
         )
     }()
     
-    private var accountsCoordinator: AccountsCoordinator {
+    private func accountsCoordinator(user: User) -> AccountsCoordinator {
         .init(
             router: router,
             accountListDependencies: accountsListDependencies,
-            productDetailDependencies: productDetailDependencies
+            productDetailDependencies: productDetailDependencies,
+            user: user
         )
     }
     
@@ -66,13 +67,16 @@ final class AppBootstrap {
         LoginDependencies(
             sessionManager: SessionManager(),
             login: dataProvider.login(request:completion:),
-            successfulLoginHandler: { [weak self] router in
+            successfulLoginHandler: { [weak self] router, user in
                 guard let self else { return }
+                // Using a differen't type here so that FeatureAccounts does not need to depend on LoginResponse.
+                let castUser = User(firstName: user.firstName, lastName: user.lastName)
                 router.push(
                     AccountsListViewController(
                         viewModel: .init(
                             dependencies: accountsListDependencies,
-                            coordinator: accountsCoordinator
+                            coordinator: accountsCoordinator(user: castUser),
+                            user: castUser
                         )
                     ),
                     animated: true,

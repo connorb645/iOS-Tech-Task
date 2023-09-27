@@ -16,7 +16,7 @@ public typealias LoginAPIRequest = (_ request: LoginRequest, _ completion: @esca
 public protocol LoginDependenciesType {
     var sessionManager: SessionManagerType { get }
     var login: LoginAPIRequest { get }
-    var successfulLoginHandler: (Routing) -> Void { get }
+    var successfulLoginHandler: (Routing, LoginResponse.User) -> Void { get }
     var emailValidator: Validator { get }
     var passwordValidator: Validator { get }
     var theme: ThemeProvider { get }
@@ -26,7 +26,7 @@ public protocol LoginDependenciesType {
 public struct LoginDependencies: LoginDependenciesType {
     public let sessionManager: SessionManagerType
     public let login: LoginAPIRequest
-    public let successfulLoginHandler: (Routing) -> Void
+    public let successfulLoginHandler: (Routing, LoginResponse.User) -> Void
     public let emailValidator: Validator
     public let passwordValidator: Validator
     public let theme: ThemeProvider
@@ -35,7 +35,7 @@ public struct LoginDependencies: LoginDependenciesType {
     public init(
         sessionManager: SessionManager,
         login: @escaping LoginAPIRequest,
-        successfulLoginHandler: @escaping (Routing) -> Void,
+        successfulLoginHandler: @escaping (Routing, LoginResponse.User) -> Void,
         emailValidator: Validator,
         passwordValidator: Validator,
         theme: ThemeProvider,

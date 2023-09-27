@@ -56,7 +56,7 @@ final class LoginViewModel {
                 switch result {
                 case .success(let response):
                     self.dependencies.sessionManager.setUserToken(response.session.bearerToken)
-                    self.coordinator.handleSuccessfulLogin()
+                    self.coordinator.handleSuccessfulLogin(user: response.user)
                 case .failure(let error):
                     self.setError?(error.localizedDescription)
                 }

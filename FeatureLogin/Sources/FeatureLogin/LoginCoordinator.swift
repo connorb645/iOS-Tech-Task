@@ -6,10 +6,11 @@
 //
 
 import Foundation
+import Networking
 import Coordinating
 
 protocol LoginCoordinatorType: Coordinating, AnyObject {
-    func handleSuccessfulLogin()
+    func handleSuccessfulLogin(user: LoginResponse.User)
 }
 
 public final class LoginCoordinator: LoginCoordinatorType {
@@ -32,7 +33,7 @@ public final class LoginCoordinator: LoginCoordinatorType {
         router.push(viewController, animated: isAnimated, canGoBack: canGoBack)
     }
     
-    public func handleSuccessfulLogin() {
-        dependencies.successfulLoginHandler(router)
+    public func handleSuccessfulLogin(user: LoginResponse.User) {
+        dependencies.successfulLoginHandler(router, user)
     }
 }

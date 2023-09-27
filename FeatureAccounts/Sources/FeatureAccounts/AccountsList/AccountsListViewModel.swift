@@ -30,6 +30,8 @@ final public class AccountsListViewModel {
         response?.totalPlanValue
     }
     
+    let displayName: String
+    
     var setIsFetchingProducts: ((Bool) -> Void)?
     var onProductsFetchComplete: (() -> Void)?
     
@@ -40,10 +42,12 @@ final public class AccountsListViewModel {
         
     public init(
         dependencies: AccountsListDependenciesType,
-        coordinator: AccountsCoordinatorType
+        coordinator: AccountsCoordinatorType,
+        user: User
     ) {
         self.dependencies = dependencies
         self.coordinator = coordinator
+        displayName = user.firstName ?? "Anonymous"
     }
     
     // MARK: - Actions

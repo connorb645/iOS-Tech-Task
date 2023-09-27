@@ -103,7 +103,7 @@ extension AccountsListView: UITableViewDataSource {
         if let cell = tableView.dequeueReusableCell(withIdentifier: AccountsListHeaderTableViewCell.reuseIdentifier, for: indexPath) as? AccountsListHeaderTableViewCell,
            indexPath.row == 0 {
             cell.configure(with: .init(
-                displayName: "Connor Black",
+                displayName: viewModel.displayName,
                 totalPlanValue: viewModel.totalPlanValue,
                 formatAsCurrency: { [weak self] amount in
                     guard let self else { return "" }

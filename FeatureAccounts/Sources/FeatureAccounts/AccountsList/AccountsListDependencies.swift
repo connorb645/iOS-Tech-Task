@@ -12,6 +12,16 @@ import Networking
 
 public typealias ProductFetcher = ((@escaping (Result<AccountResponse, Error>) -> Void)) -> Void
 
+public struct User {
+    let firstName: String?
+    let lastName: String?
+    
+    public init(firstName: String?, lastName: String?) {
+        self.firstName = firstName
+        self.lastName = lastName
+    }
+}
+
 public protocol AccountsListDependenciesType {
     var sessionManager: SessionManagerType { get }
     var logoutHandler: () -> Void { get }
