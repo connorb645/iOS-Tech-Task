@@ -14,7 +14,7 @@ final public class ProductDetailView: View<ProductDetailViewModel> {
     
     private lazy var headerContainer: UIView = {
         let view = UIView()
-        view.backgroundColor = .lightGray
+        view.backgroundColor = viewModel.theme.background
         return view
     }()
     
@@ -23,6 +23,8 @@ final public class ProductDetailView: View<ProductDetailViewModel> {
         view.axis = .vertical
         view.addArrangedSubview(accountTitleLabel)
         view.addArrangedSubview(productTitleLabel)
+        view.isAccessibilityElement = true
+        view.accessibilityLabel = "Your \(productTitleLabel.text ?? "") plan, within your \(accountTitleLabel.text ?? "") account"
         return view
     }()
     
@@ -30,7 +32,7 @@ final public class ProductDetailView: View<ProductDetailViewModel> {
         let label = UILabel()
         label.text = viewModel.productTitle
         label.font = UIFont.systemFont(ofSize: 32, weight: .black)
-        label.textColor = .white
+        label.textColor = viewModel.theme.font
         return label
     }()
     
@@ -38,13 +40,14 @@ final public class ProductDetailView: View<ProductDetailViewModel> {
         let label = UILabel()
         label.text = viewModel.accountTitle
         label.font = UIFont.systemFont(ofSize: 16, weight: .bold)
-        label.textColor = .white
+        label.textColor = viewModel.theme.font
         return label
     }()
     
     private lazy var planValueInfoLabel: UILabel = {
         let label = UILabel()
         label.text = "This plans value is:"
+        label.textColor = viewModel.theme.font
         return label
     }()
     
@@ -52,12 +55,14 @@ final public class ProductDetailView: View<ProductDetailViewModel> {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 32, weight: .black)
         label.text = viewModel.formatAsCurrency(viewModel.planValue)
+        label.textColor = viewModel.theme.font
         return label
     }()
     
     private lazy var moneyboxInfoLabel: UILabel = {
         let label = UILabel()
         label.text = "The value in your moneybox is:"
+        label.textColor = viewModel.theme.font
         return label
     }()
     
@@ -69,24 +74,46 @@ final public class ProductDetailView: View<ProductDetailViewModel> {
             }
         label.font = UIFont.systemFont(ofSize: 32, weight: .black)
         label.text = viewModel.formatAsCurrency(viewModel.moneyboxValue)
+        label.textColor = viewModel.theme.font
         return label
     }()
     
-    private lazy var detailContentStackView: UIStackView = {
+    private lazy var moneyboxContentStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.spacing = 8
         stackView.addArrangedSubview(moneyboxInfoLabel)
         stackView.addArrangedSubview(moneyboxLabel)
+        stackView.isAccessibilityElement = true
+        stackView.accessibilityLabel = "\(moneyboxInfoLabel.text ?? ""), \(moneyboxLabel.text ?? "")"
+        return stackView
+    }()
+    
+    private lazy var planValueContentStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.spacing = 8
         stackView.addArrangedSubview(planValueInfoLabel)
         stackView.addArrangedSubview(planValueLabel)
+        stackView.isAccessibilityElement = true
+        stackView.accessibilityLabel = "\(planValueInfoLabel.text ?? ""), \(planValueLabel.text ?? "")"
+        return stackView
+    }()
+    
+    private lazy var detailContentStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.spacing = 16
+        stackView.addArrangedSubview(moneyboxContentStackView)
+        stackView.addArrangedSubview(planValueContentStackView)
         return stackView
     }()
     
     private lazy var topUpAccountButton: PrimaryButton = {
         let button = PrimaryButton(
-            title: viewModel.formatAsCurrency(Double(viewModel.topUpAmount)),
-            target: (self, #selector(topUpAccountButtonTapped))
+            title: "Add \(viewModel.formatAsCurrency(Double(viewModel.topUpAmount)))",
+            target: (self, #selector(topUpAccountButtonTapped)),
+            color: viewModel.theme.accentColour
         )
         return button
     }()
@@ -142,7 +169,7 @@ final public class ProductDetailView: View<ProductDetailViewModel> {
         headerStackView.activateConstraints {
             $0.leadingAnchor.constraint(equalTo: headerContainer.leadingAnchor, constant: 16)
             $0.trailingAnchor.constraint(equalTo: headerContainer.trailingAnchor, constant: -16)
-            $0.topAnchor.constraint(equalTo: headerContainer.topAnchor, constant: 64)
+            $0.topAnchor.constraint(equalTo: headerContainer.topAnchor, constant: 32)
             $0.bottomAnchor.constraint(equalTo: headerContainer.bottomAnchor, constant: -16)
         }
     }

@@ -12,8 +12,10 @@ import Coordinating
 import FeatureLogin
 import FeatureAccounts
 import Core
+import CoreUI
 
 final class AppBootstrap {
+    private let theme: ThemeProvider
     private var router: Routing
     
     private let dataProvider: DataProviderLogic
@@ -37,7 +39,8 @@ final class AppBootstrap {
             fetchProducts: dataProvider.fetchProducts(completion:),
             formatAsCurrency: { amount in
                 formatAsCurrency(amount: amount)
-            }
+            },
+            theme: self.theme
         )
     }()
     
@@ -46,7 +49,8 @@ final class AppBootstrap {
             oneOffPaymentRequester: dataProvider.addMoney(request:completion:),
             formatAsCurrency: { amount in
                 formatAsCurrency(amount: amount)
-            }
+            },
+            theme: self.theme
         )
     }()
     
@@ -76,7 +80,9 @@ final class AppBootstrap {
                 )
             },
             emailValidator: EmailValidator(),
-            passwordValidator: PasswordValidator()
+            passwordValidator: PasswordValidator(),
+            theme: self.theme,
+            bundle: .main
         )
     }()
     
@@ -92,6 +98,7 @@ final class AppBootstrap {
         window: UIWindow?,
         windowScene: UIWindowScene?
     ) {
+        self.theme = DefaultTheme(bundle: .main)
         self.router = router
         self.window = window
         self.windowScene = windowScene

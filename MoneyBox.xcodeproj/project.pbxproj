@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		B26EF47828881E7F003BFDF2 /* Networking in Frameworks */ = {isa = PBXBuildFile; productRef = B26EF47728881E7F003BFDF2 /* Networking */; };
 		B2CA46CC279350880041B3A5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2CA46CB279350880041B3A5 /* AppDelegate.swift */; };
-		B2CA46D52793508A0041B3A5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B2CA46D42793508A0041B3A5 /* Assets.xcassets */; };
 		B2CA46D82793508A0041B3A5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2CA46D62793508A0041B3A5 /* LaunchScreen.storyboard */; };
 		B32292452ABC86AE003B7C8D /* Coordinating in Frameworks */ = {isa = PBXBuildFile; productRef = B32292442ABC86AE003B7C8D /* Coordinating */; };
 		B32292472ABC871D003B7C8D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32292462ABC871D003B7C8D /* SceneDelegate.swift */; };
@@ -20,6 +19,7 @@
 		B322925F2ABE01B2003B7C8D /* LaunchCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B322925E2ABE01B2003B7C8D /* LaunchCoordinator.swift */; };
 		B32292612ABE0EA6003B7C8D /* AppDependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32292602ABE0EA6003B7C8D /* AppDependencies.swift */; };
 		B34E78322ABEC6A1001D4CAC /* CoreUI in Frameworks */ = {isa = PBXBuildFile; productRef = B34E78312ABEC6A1001D4CAC /* CoreUI */; };
+		B3F41D4D2AC4B85B00A1EFFC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3F41D4C2AC4B85B00A1EFFC /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,7 +36,6 @@
 		B24EED92288ED5740016C233 /* Networking */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Networking; sourceTree = "<group>"; };
 		B2CA46C8279350880041B3A5 /* MoneyBox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoneyBox.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2CA46CB279350880041B3A5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		B2CA46D42793508A0041B3A5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B2CA46D72793508A0041B3A5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B2CA46D92793508A0041B3A5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B2CA46DE2793508A0041B3A5 /* MoneyBoxTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MoneyBoxTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -50,6 +49,7 @@
 		B32292602ABE0EA6003B7C8D /* AppDependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDependencies.swift; sourceTree = "<group>"; };
 		B34E78302ABEC691001D4CAC /* CoreUI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = CoreUI; sourceTree = "<group>"; };
 		B3B9E72D2AC42E36006A573D /* SharedTestUtils */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = SharedTestUtils; sourceTree = "<group>"; };
+		B3F41D4C2AC4B85B00A1EFFC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,8 +149,8 @@
 		B322924C2ABC878D003B7C8D /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				B3F41D4C2AC4B85B00A1EFFC /* Assets.xcassets */,
 				B2CA46D92793508A0041B3A5 /* Info.plist */,
-				B2CA46D42793508A0041B3A5 /* Assets.xcassets */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -246,8 +246,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B3F41D4D2AC4B85B00A1EFFC /* Assets.xcassets in Resources */,
 				B2CA46D82793508A0041B3A5 /* LaunchScreen.storyboard in Resources */,
-				B2CA46D52793508A0041B3A5 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

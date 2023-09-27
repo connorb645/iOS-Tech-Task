@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreUI
 import UIKit
 import Core
 
@@ -14,21 +15,24 @@ final class AccountsListHeaderTableViewCell: UITableViewCell, ReuseIdentifiable 
         let displayName: String
         let totalPlanValue: Double?
         let formatAsCurrency: CurrencyFormatter
+        let theme: ThemeProvider
         
         init(
             displayName: String,
             totalPlanValue: Double?,
-            formatAsCurrency: @escaping CurrencyFormatter
+            formatAsCurrency: @escaping CurrencyFormatter,
+            theme: ThemeProvider
         ) {
             self.displayName = displayName
             self.totalPlanValue = totalPlanValue
             self.formatAsCurrency = formatAsCurrency
+            self.theme = theme
         }
     }
     
     private lazy var headerContainer: UIView = {
         let view = UIView()
-        view.backgroundColor = .lightGray
+        view.backgroundColor = data?.theme.background ?? .white
         return view
     }()
     
@@ -43,21 +47,24 @@ final class AccountsListHeaderTableViewCell: UITableViewCell, ReuseIdentifiable 
     private lazy var welcomeLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 32, weight: .black)
-        label.textColor = .white
+        label.textColor = data?.theme.font ?? .white
         return label
     }()
     
     private lazy var totalPlanLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 16, weight: .bold)
-        label.textColor = .white
+        label.textColor = data?.theme.font ?? .white
         return label
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         selectionStyle = .none
+        isAccessibilityElement = true
     }
+    
+    private var data: CellConfigurationData?
     
     override func prepareForReuse() {
         super.prepareForReuse()
@@ -65,17 +72,19 @@ final class AccountsListHeaderTableViewCell: UITableViewCell, ReuseIdentifiable 
     }
     
     func configure(with data: CellConfigurationData) {
+        contentView.backgroundColor = data.theme.background
+        self.data = data
         setupConstraints()
-        
         welcomeLabel.text = "Hey \(data.displayName)! 👋"
+        let planValue = data.totalPlanValue ?? 0.0
+        let planCurrency = data.formatAsCurrency(planValue)
+        totalPlanLabel.text = "Your total plan value is \(planCurrency)"
         
-        if let planValue = data.totalPlanValue {
-            let planCurrency = data.formatAsCurrency(planValue)
-            totalPlanLabel.text = "Your total plan value is \(planCurrency)"
-        }
+        accessibilityLabel = "Hey, \(data.displayName). You have a total plan value of \(planCurrency)"
     }
     
     private func setupConstraints() {
+        
         addSubview(headerContainer)
         headerContainer.activateConstraints {
             $0.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0)
@@ -88,7 +97,7 @@ final class AccountsListHeaderTableViewCell: UITableViewCell, ReuseIdentifiable 
         headerStackView.activateConstraints {
             $0.leadingAnchor.constraint(equalTo: headerContainer.leadingAnchor, constant: 16)
             $0.trailingAnchor.constraint(equalTo: headerContainer.trailingAnchor, constant: -16)
-            $0.topAnchor.constraint(equalTo: headerContainer.topAnchor, constant: 64)
+            $0.topAnchor.constraint(equalTo: headerContainer.topAnchor, constant: 32)
             $0.bottomAnchor.constraint(equalTo: headerContainer.bottomAnchor, constant: -16)
         }
     }

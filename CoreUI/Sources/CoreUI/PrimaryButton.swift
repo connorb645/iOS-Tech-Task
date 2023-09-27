@@ -27,18 +27,20 @@ public final class PrimaryButton: UIButton {
     
     private lazy var activityLoader: UIActivityIndicatorView = {
         let activityLoader = UIActivityIndicatorView()
-        activityLoader.color = .lightGray
         activityLoader.hidesWhenStopped = true
         return activityLoader
     }()
     
     public init(
         title: String,
-        target: (Any?, Selector)
+        target: (Any?, Selector),
+        color: UIColor = .black,
+        loadingIndicatorColor: UIColor = .white
     ) {
         super.init(frame: .zero)
         setTitle(title, for: .normal)
-        backgroundColor = .black
+        backgroundColor = color
+        activityLoader.color = loadingIndicatorColor
         addTarget(target.0, action: target.1, for: .touchUpInside)
         addActivityLoader()
     }
