@@ -61,6 +61,7 @@ final class AccountsListHeaderTableViewCell: UITableViewCell, ReuseIdentifiable 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         selectionStyle = .none
+        isAccessibilityElement = true
     }
     
     private var data: CellConfigurationData?
@@ -75,10 +76,11 @@ final class AccountsListHeaderTableViewCell: UITableViewCell, ReuseIdentifiable 
         self.data = data
         setupConstraints()
         welcomeLabel.text = "Hey \(data.displayName)! 👋"
-        if let planValue = data.totalPlanValue {
-            let planCurrency = data.formatAsCurrency(planValue)
-            totalPlanLabel.text = "Your total plan value is \(planCurrency)"
-        }
+        let planValue = data.totalPlanValue ?? 0.0
+        let planCurrency = data.formatAsCurrency(planValue)
+        totalPlanLabel.text = "Your total plan value is \(planCurrency)"
+        
+        accessibilityLabel = "Hey, \(data.displayName). You have a total plan value of \(planCurrency)"
     }
     
     private func setupConstraints() {

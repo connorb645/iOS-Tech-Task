@@ -97,6 +97,8 @@ final class ProductCollectionViewCell: UICollectionViewCell, ReuseIdentifiable {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        isAccessibilityElement = true
+        
     }
     
     required init?(coder: NSCoder) {
@@ -124,13 +126,13 @@ final class ProductCollectionViewCell: UICollectionViewCell, ReuseIdentifiable {
     func configure(with data: CellConfigurationData) {
         self.data = data
         setupConstraints()
-        titleLabel.text = data.title ?? ""
-        if let moneybox = data.moneybox {
-            moneyboxLabel.text = data.formatAsCurrency(moneybox)
-        }
+        let title = data.title ?? ""
+        titleLabel.text = title
+        let moneybox = data.moneybox ?? 0.0
+        let planValue = data.planValue ?? 0.0
+        moneyboxLabel.text = data.formatAsCurrency(moneybox)
+        planValueLabel.text = data.formatAsCurrency(planValue)
         
-        if let planValue = data.planValue {
-            planValueLabel.text = data.formatAsCurrency(planValue)
-        }
+        accessibilityLabel = "Your \(title) Plan. You have a Moneybox value of: \(data.formatAsCurrency(moneybox)). And a plan value of: \(data.formatAsCurrency(planValue))"
     }
 }

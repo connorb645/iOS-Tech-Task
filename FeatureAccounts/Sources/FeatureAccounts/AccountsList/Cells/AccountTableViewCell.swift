@@ -61,6 +61,7 @@ final class AccountTableViewCell: UITableViewCell, ReuseIdentifiable {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         selectionStyle = .none
+        isAccessibilityElement = false
     }
     
     override func prepareForReuse() {
@@ -73,8 +74,11 @@ final class AccountTableViewCell: UITableViewCell, ReuseIdentifiable {
         contentView.backgroundColor = data.theme.background
         self.data = data
         setupConstraints()
-        titleLabel.text = data.title ?? ""
+        let title = data.title ?? ""
+        titleLabel.text = title
         productsCollectionView.reloadData()
+        
+        accessibilityLabel = "Your \(title) plans"
     }
     
     private func setupConstraints() {

@@ -23,6 +23,8 @@ final public class ProductDetailView: View<ProductDetailViewModel> {
         view.axis = .vertical
         view.addArrangedSubview(accountTitleLabel)
         view.addArrangedSubview(productTitleLabel)
+        view.isAccessibilityElement = true
+        view.accessibilityLabel = "Your \(productTitleLabel.text ?? "") plan, within your \(accountTitleLabel.text ?? "") account"
         return view
     }()
     
@@ -76,20 +78,40 @@ final public class ProductDetailView: View<ProductDetailViewModel> {
         return label
     }()
     
-    private lazy var detailContentStackView: UIStackView = {
+    private lazy var moneyboxContentStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.spacing = 8
         stackView.addArrangedSubview(moneyboxInfoLabel)
         stackView.addArrangedSubview(moneyboxLabel)
+        stackView.isAccessibilityElement = true
+        stackView.accessibilityLabel = "\(moneyboxInfoLabel.text ?? ""), \(moneyboxLabel.text ?? "")"
+        return stackView
+    }()
+    
+    private lazy var planValueContentStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.spacing = 8
         stackView.addArrangedSubview(planValueInfoLabel)
         stackView.addArrangedSubview(planValueLabel)
+        stackView.isAccessibilityElement = true
+        stackView.accessibilityLabel = "\(planValueInfoLabel.text ?? ""), \(planValueLabel.text ?? "")"
+        return stackView
+    }()
+    
+    private lazy var detailContentStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.spacing = 16
+        stackView.addArrangedSubview(moneyboxContentStackView)
+        stackView.addArrangedSubview(planValueContentStackView)
         return stackView
     }()
     
     private lazy var topUpAccountButton: PrimaryButton = {
         let button = PrimaryButton(
-            title: viewModel.formatAsCurrency(Double(viewModel.topUpAmount)),
+            title: "Add \(viewModel.formatAsCurrency(Double(viewModel.topUpAmount)))",
             target: (self, #selector(topUpAccountButtonTapped)),
             color: viewModel.theme.accentColour
         )
