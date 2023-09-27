@@ -136,6 +136,7 @@ extension AccountsListView: UITableViewDataSource {
                 theme: viewModel.theme
             ))
             cell.didTapProduct = { [weak self] productId, accountWrapperId in
+                HapticFeedback.impactOccurred()
                 self?.viewModel.handleProductTapped(
                     productId: productId,
                     accountWrapperId: accountWrapperId) { [weak self] in
