@@ -18,6 +18,7 @@ public protocol LoginDependenciesType {
     var successfulLoginHandler: (Routing) -> Void { get }
     var emailValidator: Validator { get }
     var passwordValidator: Validator { get }
+    var bundle: Bundle { get }
 }
 
 public struct LoginDependencies: LoginDependenciesType {
@@ -26,18 +27,21 @@ public struct LoginDependencies: LoginDependenciesType {
     public let successfulLoginHandler: (Routing) -> Void
     public let emailValidator: Validator
     public let passwordValidator: Validator
+    public let bundle: Bundle
     
     public init(
         sessionManager: SessionManager,
         login: @escaping LoginAPIRequest,
         successfulLoginHandler: @escaping (Routing) -> Void,
         emailValidator: Validator,
-        passwordValidator: Validator
+        passwordValidator: Validator,
+        bundle: Bundle
     ) {
         self.sessionManager = sessionManager
         self.login = login
         self.successfulLoginHandler = successfulLoginHandler
         self.emailValidator = emailValidator
         self.passwordValidator = passwordValidator
+        self.bundle = bundle
     }
 }

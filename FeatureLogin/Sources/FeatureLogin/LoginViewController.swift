@@ -15,6 +15,5 @@ final class LoginViewController: ViewController<LoginViewModel, LoginView> {
                 viewModel: viewModel
             )
         )
-        title = "Login"
     }
 }

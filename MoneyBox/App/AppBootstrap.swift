@@ -76,7 +76,8 @@ final class AppBootstrap {
                 )
             },
             emailValidator: EmailValidator(),
-            passwordValidator: PasswordValidator()
+            passwordValidator: PasswordValidator(),
+            bundle: .main
         )
     }()
     

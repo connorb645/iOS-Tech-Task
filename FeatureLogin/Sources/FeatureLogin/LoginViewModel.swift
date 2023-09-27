@@ -17,6 +17,9 @@ final class LoginViewModel {
     private let dependencies: LoginDependenciesType
     private let coordinator: LoginCoordinatorType
     
+    lazy var bundle: Bundle = {
+        dependencies.bundle
+    }()
     var setError: ((String?) -> Void)?
     var setIsLoading: ((Bool) -> Void)?
     

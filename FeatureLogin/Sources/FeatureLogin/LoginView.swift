@@ -17,6 +17,13 @@ final class LoginView: View<LoginViewModel> {
         return label
     }
     
+    private lazy var moneyboxImage: UIImageView = {
+        let image = UIImage(named: "moneybox", in: viewModel.bundle, with: .none)
+        let imageView = UIImageView(image: image)
+        imageView.contentMode = .scaleAspectFit
+        return imageView
+    }()
+    
     private lazy var emailTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "e.g. example@gmail.com"
@@ -40,7 +47,6 @@ final class LoginView: View<LoginViewModel> {
     private lazy var emailStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
-        // TODO: - Add resultBuilder for adding arranged subviews to stackviews
         stackView.addArrangedSubview(textFieldHeaderLabel("Email Address"))
         stackView.addArrangedSubview(emailTextField)
         stackView.spacing = 16
@@ -50,7 +56,6 @@ final class LoginView: View<LoginViewModel> {
     private lazy var passwordStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
-        // TODO: - Add resultBuilder for adding arranged subviews to stackviews
         stackView.addArrangedSubview(textFieldHeaderLabel("Password"))
         stackView.addArrangedSubview(passwordTextField)
         stackView.spacing = 16
@@ -71,14 +76,12 @@ final class LoginView: View<LoginViewModel> {
     private lazy var contentStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
-        // TODO: - Add resultBuilder for adding arranged subviews to stackviews
+        stackView.addArrangedSubview(moneyboxImage)
         stackView.addArrangedSubview(emailStackView)
         stackView.addArrangedSubview(passwordStackView)
         stackView.addArrangedSubview(loginButton)
         stackView.addArrangedSubview(errorLabel)
         stackView.spacing = 32
-        stackView.alignment = .fill
-        stackView.distribution = .equalSpacing
         return stackView
     }()
     
@@ -88,10 +91,6 @@ final class LoginView: View<LoginViewModel> {
         label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping
         return label
-    }()
-    
-    private lazy var scrollView: UIScrollView = {
-        UIScrollView()
     }()
     
     override init(viewModel: LoginViewModel) {
@@ -124,22 +123,12 @@ final class LoginView: View<LoginViewModel> {
     override func configureView() {
         super.configureView()
         
-        scrollView.addSubview(contentStackView)
-        addSubview(scrollView)
-        
-        scrollView.activateConstraints {
-            $0.leadingAnchor.constraint(equalTo: leadingAnchor)
-            $0.rightAnchor.constraint(equalTo: rightAnchor)
-            $0.topAnchor.constraint(equalTo: topAnchor)
-            $0.bottomAnchor.constraint(equalTo: bottomAnchor)
-        }
+        addSubview(contentStackView)
         
         contentStackView.activateConstraints {
-            $0.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor)
-            $0.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor)
-            $0.topAnchor.constraint(equalTo: scrollView.topAnchor)
-            $0.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor)
-            $0.widthAnchor.constraint(equalTo: scrollView.widthAnchor)
+            $0.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16)
+            $0.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16)
+            $0.topAnchor.constraint(equalTo: topAnchor)
         }
     }
     
