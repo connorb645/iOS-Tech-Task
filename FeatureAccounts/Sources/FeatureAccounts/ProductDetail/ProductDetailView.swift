@@ -112,9 +112,10 @@ final public class ProductDetailView: View<ProductDetailViewModel> {
     private lazy var topUpAccountButton: PrimaryButton = {
         let button = PrimaryButton(
             title: "Add \(viewModel.formatAsCurrency(Double(viewModel.topUpAmount)))",
-            target: (self, #selector(topUpAccountButtonTapped)),
             color: viewModel.theme.accentColour
-        )
+        ) { [weak self] in
+            self?.topUpAccountButtonTapped()
+        }
         return button
     }()
         

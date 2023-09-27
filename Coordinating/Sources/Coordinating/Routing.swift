@@ -21,6 +21,9 @@ extension UINavigationController: Routing {
         if !canGoBack {
             viewController.navigationItem.hidesBackButton = true
             viewController.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+        } else {
+            viewController.navigationItem.hidesBackButton = false
+            viewController.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
         }
     }
     

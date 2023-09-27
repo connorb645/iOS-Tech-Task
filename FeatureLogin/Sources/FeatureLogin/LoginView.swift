@@ -37,9 +37,7 @@ final class LoginView: View<LoginViewModel> {
         textField.textContentType = .emailAddress
         textField.keyboardType = .emailAddress
         textField.returnKeyType = .next
-        #if DEBUG
-        textField.text = "test+ios2@moneyboxapp.com"
-        #endif
+        textField.autocapitalizationType = .none
         return textField
     }()
     
@@ -53,9 +51,6 @@ final class LoginView: View<LoginViewModel> {
         textField.tintColor = viewModel.theme.font
         textField.textContentType = .password
         textField.returnKeyType = .go
-        #if DEBUG
-        textField.text = "P455word12"
-        #endif
         return textField
     }()
     
@@ -80,9 +75,10 @@ final class LoginView: View<LoginViewModel> {
     private lazy var loginButton: PrimaryButton = {
         let button = PrimaryButton(
             title: "Login",
-            target: (self,  #selector(loginTapped)),
             color: viewModel.theme.accentColour
-        )
+        ) { [weak self] in
+            self?.loginTapped()
+        }
         button.activateConstraints {
             $0.heightAnchor.constraint(equalToConstant: 45)
         }
@@ -180,7 +176,6 @@ final class LoginView: View<LoginViewModel> {
         }
     }
     
-    @objc
     private func loginTapped() {
         viewModel.attemptLogin(
             with: .init(
@@ -196,6 +191,7 @@ extension LoginView: UITextFieldDelegate {
         if textField == emailTextField {
             passwordTextField.becomeFirstResponder()
         } else if textField == passwordTextField {
+            HapticFeedback.impactOccurred()
             loginTapped()
         }
         return true

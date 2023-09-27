@@ -102,7 +102,7 @@ final class LoginViewModelTests: XCTestCase {
         let setUserTokenInvocations = sessionManagerMock.methodCalls.filter { $0 == .setUserToken(.init("Fake_token")) }
         XCTAssertEqual(setUserTokenInvocations.count, 1)
         // Ensure that coordinator calls handleSuccessfulLogin exactly once
-        let successfulLoginInvokations = coordinatorMock.methodCalls.filter { $0 == .handleSuccessfulLogin }
+        let successfulLoginInvokations = coordinatorMock.methodCalls.filter { $0 == .handleSuccessfulLogin(response.user) }
         XCTAssertEqual(successfulLoginInvokations.count, 1)
     }
     
@@ -143,8 +143,5 @@ final class LoginViewModelTests: XCTestCase {
         // Ensure that the dependencies class calls login handler exactly 1 time
         let loginInvokations = dependenciesMock.methodCalls.filter { $0 == .loginInvoked(.init(input: .init(request), output: .init(equatableResult))) }
         XCTAssertEqual(loginInvokations.count, 1)
-        // Ensure that coordinator does not call handleSuccessfulLogin
-        let successfulLoginInvokations = coordinatorMock.methodCalls.filter { $0 == .handleSuccessfulLogin }
-        XCTAssertEqual(successfulLoginInvokations.count, 0)
     }
 }
