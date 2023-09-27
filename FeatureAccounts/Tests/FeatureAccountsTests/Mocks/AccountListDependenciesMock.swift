@@ -6,7 +6,6 @@
 //
 
 import Core
-import CoreUI
 import XCTest
 import Foundation
 import Networking
@@ -45,9 +44,7 @@ final class AccountsListDependenciesMock: AccountsListDependenciesType {
     }
     
     var methodCalls: [MethodCall] = []
-    var theme: ThemeProvider = DefaultTheme(bundle: .main)
     
     init(sessionManager: SessionManagerMock = SessionManagerMock()) {
         self.sessionManager = sessionManager
-    }
-}
+    }}

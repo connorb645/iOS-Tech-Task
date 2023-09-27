@@ -55,7 +55,5 @@ public final class CountingAnimatedLabel: UILabel {
             let v = value + percentage * (endValue - value)
             text = self.formatAsCurrency(v)
         }
-        
-        HapticFeedback.impactOccurred()
     }
 }

@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import Networking
 import Coordinating
 import SharedTestUtils
 @testable import FeatureLogin
@@ -18,7 +17,7 @@ final class LoginCoordinatorMock: LoginCoordinatorType {
     }
     
     enum MethodCall: Equatable {
-        case handleSuccessfulLogin(LoginResponse.User)
+        case handleSuccessfulLogin
         case start(StartInvocation)
     }
     
@@ -34,7 +33,7 @@ final class LoginCoordinatorMock: LoginCoordinatorType {
         methodCalls.append(.start(.init(isAnimated: isAnimated, canGoBack: canGoBack)))
     }
     
-    func handleSuccessfulLogin(user: LoginResponse.User) {
-        methodCalls.append(.handleSuccessfulLogin(user))
+    func handleSuccessfulLogin() {
+        methodCalls.append(.handleSuccessfulLogin)
     }
 }

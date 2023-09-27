@@ -31,20 +31,17 @@ public final class PrimaryButton: UIButton {
         return activityLoader
     }()
     
-    private let action: () -> Void
-    
     public init(
         title: String,
+        target: (Any?, Selector),
         color: UIColor = .black,
-        loadingIndicatorColor: UIColor = .white,
-        action: @escaping () -> Void
+        loadingIndicatorColor: UIColor = .white
     ) {
-        self.action = action
         super.init(frame: .zero)
         setTitle(title, for: .normal)
         backgroundColor = color
         activityLoader.color = loadingIndicatorColor
-        addTarget(self, action: #selector(tapped), for: .touchUpInside)
+        addTarget(target.0, action: target.1, for: .touchUpInside)
         addActivityLoader()
     }
     
@@ -58,11 +55,5 @@ public final class PrimaryButton: UIButton {
     
     public required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    @objc
-    private func tapped() {
-        HapticFeedback.impactOccurred()
-        action()
     }
 }

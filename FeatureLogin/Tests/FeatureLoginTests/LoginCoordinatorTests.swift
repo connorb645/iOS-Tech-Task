@@ -8,7 +8,6 @@
 import XCTest
 import Foundation
 import Coordinating
-import Networking
 import SharedTestUtils
 @testable import FeatureLogin
 
@@ -48,10 +47,9 @@ final class LoginCoordinatorTests: XCTestCase {
     }
     
     func test_handleSuccessfulLogin() {
-        let mockUser = LoginResponse.User.init(firstName: "Test", lastName: "Name")
-        coordinator.handleSuccessfulLogin(user: mockUser)
+        coordinator.handleSuccessfulLogin()
         
-        let successfulLoginHandlerInvocations = dependenciesMock.methodCalls.filter { $0 == .successfullyLoggedInInvoked(.init(mockUser)) }
+        let successfulLoginHandlerInvocations = dependenciesMock.methodCalls.filter { $0 == .successfullyLoggedInInvoked }
         XCTAssertEqual(successfulLoginHandlerInvocations.count, 1)
     }
 }

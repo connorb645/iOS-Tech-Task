@@ -6,7 +6,6 @@
 //
 
 import Core
-import CoreUI
 import XCTest
 import Foundation
 import Networking
@@ -37,6 +36,5 @@ final class ProductDetailDependenciesMock: ProductDetailDependenciesType {
         return result
     }
     
-    var theme: ThemeProvider = DefaultTheme(bundle: .main)
     var methodCalls: [MethodCall] = []
 }
