@@ -164,7 +164,7 @@ final class LoginView: View<LoginViewModel> {
             $0.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor)
             $0.topAnchor.constraint(equalTo: scrollView.topAnchor)
             $0.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor)
-            $0.widthAnchor.constraint(greaterThanOrEqualTo: scrollView.widthAnchor, multiplier: 0.9)
+            $0.widthAnchor.constraint(equalTo: scrollView.widthAnchor, multiplier: 0.9)
         }
         
         emailTextField.activateConstraints {

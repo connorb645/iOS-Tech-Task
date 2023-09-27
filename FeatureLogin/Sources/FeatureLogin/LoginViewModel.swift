@@ -48,7 +48,7 @@ final class LoginViewModel {
         
         let request = LoginRequest(
             email: credentials.email.trimmingCharacters(in: .whitespacesAndNewlines).lowercased(),
-            password: credentials.password.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
+            password: credentials.password.trimmingCharacters(in: .whitespacesAndNewlines)
         )
         dependencies.login(request, { result in
             DispatchQueue.main.async { [weak self] in
