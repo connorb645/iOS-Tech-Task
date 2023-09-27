@@ -9,10 +9,10 @@ import Foundation
 import Networking
 
 final public class AccountsListViewModel {
-    private let dependencies: AccountsListDependencies
-    private let coordinator: AccountsCoordinator
+    private let dependencies: AccountsListDependenciesType
+    private let coordinator: AccountsCoordinatorType
     
-    private var response: AccountResponse?
+    var response: AccountResponse?
     
     typealias AccountWithProducts = (account: Account, products: [ProductResponse])
     
@@ -35,8 +35,8 @@ final public class AccountsListViewModel {
     }
         
     public init(
-        dependencies: AccountsListDependencies,
-        coordinator: AccountsCoordinator
+        dependencies: AccountsListDependenciesType,
+        coordinator: AccountsCoordinatorType
     ) {
         self.dependencies = dependencies
         self.coordinator = coordinator
@@ -53,12 +53,11 @@ final public class AccountsListViewModel {
                 switch result {
                 case .success(let response):
                     self.response = response
-                    onProductsFetchComplete?()
                 case .failure(let error):
-                    onProductsFetchComplete?()
                     self.coordinator.displayErrorDialog(with: error.localizedDescription)
                 }
                 setIsFetchingProducts?(false)
+                onProductsFetchComplete?()
             }
         }
     }

@@ -1,7 +1,7 @@
 import XCTest
-@testable import CoreUI
+@testable import SharedTestUtils
 
-final class CoreUITests: XCTestCase {
+final class SharedTestUtilsTests: XCTestCase {
     func testExample() throws {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct

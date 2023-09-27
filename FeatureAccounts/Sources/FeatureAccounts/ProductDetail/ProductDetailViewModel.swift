@@ -9,8 +9,8 @@ import Foundation
 import Networking
 
 final public class ProductDetailViewModel {
-    private let dependencies: ProductDetailDependencies
-    private let coordinator: AccountsCoordinator
+    private let dependencies: ProductDetailDependenciesType
+    private let coordinator: AccountsCoordinatorType
     private let parentAccount: Account
     private let product: ProductResponse
     
@@ -35,11 +35,11 @@ final public class ProductDetailViewModel {
     var setIsLoading: ((Bool) -> Void)?
     var newMoneyboxValueReceived: ((Double?) -> Void)?
     
-    private var moneyboxValueUpdated: () -> Void
+    var moneyboxValueUpdated: () -> Void
         
     public init(
-        dependencies: ProductDetailDependencies,
-        coordinator: AccountsCoordinator,
+        dependencies: ProductDetailDependenciesType,
+        coordinator: AccountsCoordinatorType,
         parentAccount: Account,
         product: ProductResponse,
         moneyboxValueUpdated: @escaping () -> Void

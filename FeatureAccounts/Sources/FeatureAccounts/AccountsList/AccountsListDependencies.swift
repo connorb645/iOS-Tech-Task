@@ -9,13 +9,20 @@ import Core
 import Foundation
 import Networking
 
-public struct AccountsListDependencies {
-    public typealias ProductFetcher = ((@escaping (Result<AccountResponse, Error>) -> Void)) -> Void
-    
-    let sessionManager: SessionManagerType
-    let logoutHandler: () -> Void
-    let fetchProducts: ProductFetcher
-    let formatAsCurrency: CurrencyFormatter
+public typealias ProductFetcher = ((@escaping (Result<AccountResponse, Error>) -> Void)) -> Void
+
+public protocol AccountsListDependenciesType {
+    var sessionManager: SessionManagerType { get }
+    var logoutHandler: () -> Void { get }
+    var fetchProducts: ProductFetcher { get }
+    var formatAsCurrency: CurrencyFormatter { get }
+}
+
+public struct AccountsListDependencies: AccountsListDependenciesType {
+    public let sessionManager: SessionManagerType
+    public let logoutHandler: () -> Void
+    public let fetchProducts: ProductFetcher
+    public let formatAsCurrency: CurrencyFormatter
     
     public init(
         sessionManager: SessionManagerType,

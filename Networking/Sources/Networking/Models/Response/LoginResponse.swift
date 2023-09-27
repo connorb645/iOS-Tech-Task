@@ -8,7 +8,7 @@
 import Foundation
 
 // MARK: - LoginResponse
-public struct LoginResponse: Decodable {
+public struct LoginResponse: Decodable, Equatable {
     public let session: Session
     public let user: User
     
@@ -22,7 +22,7 @@ public struct LoginResponse: Decodable {
         case user = "User"
     }
     
-    public struct Session: Decodable {
+    public struct Session: Decodable, Equatable {
         public let bearerToken: String
         
         public init(bearerToken: String) {
@@ -35,7 +35,7 @@ public struct LoginResponse: Decodable {
     }
     
     // MARK: - User
-    public struct User: Codable {
+    public struct User: Codable, Equatable {
         public let firstName: String?
         public let lastName: String?
         

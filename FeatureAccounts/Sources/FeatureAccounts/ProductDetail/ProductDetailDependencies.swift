@@ -9,11 +9,16 @@ import Core
 import Foundation
 import Networking
 
-public struct ProductDetailDependencies {
-    public typealias OneOffPaymentRequester = (OneOffPaymentRequest, @escaping ((Result<OneOffPaymentResponse, Error>) -> Void)) -> Void
-    
-    let oneOffPaymentRequester: OneOffPaymentRequester
-    let formatAsCurrency: CurrencyFormatter
+public typealias OneOffPaymentRequester = (OneOffPaymentRequest, @escaping ((Result<OneOffPaymentResponse, Error>) -> Void)) -> Void
+
+public protocol ProductDetailDependenciesType {
+    var oneOffPaymentRequester: OneOffPaymentRequester { get }
+    var formatAsCurrency: CurrencyFormatter { get }
+}
+
+public struct ProductDetailDependencies: ProductDetailDependenciesType {
+    public let oneOffPaymentRequester: OneOffPaymentRequester
+    public let formatAsCurrency: CurrencyFormatter
     
     public init(
         oneOffPaymentRequester: @escaping OneOffPaymentRequester,

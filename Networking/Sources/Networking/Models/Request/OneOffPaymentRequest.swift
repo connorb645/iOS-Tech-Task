@@ -8,7 +8,7 @@
 import Foundation
 
 // MARK: - OneOffPaymentRequest
-public struct OneOffPaymentRequest: Encodable {
+public struct OneOffPaymentRequest: Encodable, Equatable {
     
     public let amount: Int
     public let investorProductID: Int
