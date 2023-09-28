@@ -37,14 +37,21 @@ Unit tests have been added for the ViewModels in the application. These tests en
 
 It's worth noting that while unit tests are a crucial part of ensuring the reliability and stability of the app, they are not the only form of testing that can be used. However, in this case, UITesting has been omitted as per the specification stating they are not required. This decision was made to focus on the core functionality of the app, and to ensure that the business logic is sound.
 
-#### Test User
+## Dark/Light Mode
+The app supports both light and dark mode. A consistent colour palette is used for both modes, which is provided by the Assets.xcassets file within the main app bundle. This ensures a seamless user experience when switching between modes.
+
+## Haptic Feedback
+The app incorporates haptic feedback to provide a more intuitive and immersive user experience. Haptic feedback is used to give users a tactile response when performing certain actions within the app. This can help users understand that their actions have been registered by the app, providing a more satisfying user experience.
+
+
+## Test User
 The following user can be used to authenticate
 
 |  Username          | Password         |
 | ------------- | ------------- |
 | test+ios2@moneyboxapp.com  | P455word12  |
 
-#### Authentication
+## Authentication
 Authentication in this app expires every 5 minutes and the authToken is not persisted across app launches. This is a security measure to avoid storing the user's password within the app bundle. To support persistent authentication, a refresh token should be returned in the login response. This refresh token can be used to renew the authToken when it expires.
 
 ### How to Submit your solution:
